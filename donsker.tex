@@ -1,0 +1,1020 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot,es-tabla,es-lcroman]{babel}
+\usepackage{macros}
+\usepackage{standalone}
+%\usepackage{import}
+\usepackage[margin=1in,headheight=57pt,headsep=0.1in]{geometry}
+\usepackage{tikz}
+%\usepackage[framemethod=TikZ]{mdframed}
+
+% ------------- %
+% HEADER/FOOTER %
+% ------------- %
+%\setlength\parindent{0pt}
+%\setlength\headheight{30pt}
+%\headsep=0.25in
+%\lhead{\textbf{Tarea 6}}
+%\rhead{\textbf{\course}}
+
+
+% ----------------- %
+% BOXED EXPRESSIONS %
+% ----------------- %
+
+%---------%
+% Teorema %
+%---------%
+\newcounter{thm}[section]
+\renewcommand{\thethm}{\thesection.\arabic{thm}}
+\newenvironment{thm}[1][]
+ {%
+  \refstepcounter{thm}%
+  \mdfsetup{%
+    frametitle={%
+      \tikz[baseline=(current bounding box.east),outer sep=0pt]
+      \node[anchor=east,rectangle,fill=green!20]{\strut{Teorema~\thethm}\ifstrempty{#1}{}{~(\emph{#1})}};%
+    },
+    innertopmargin=10pt,
+    linecolor=green!20,
+    linewidth=3pt,
+    topline=true,
+    frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
+  }
+  \begin{mdframed}
+ }
+ {\end{mdframed}}
+
+%-------------%
+% Observacion %
+%-------------%
+\newcounter{obs}[section]
+\renewcommand{\theobs}{\thesection.\arabic{obs}}
+\newenvironment{obs}[1][]
+ {%
+  \refstepcounter{obs}%
+  \mdfsetup{%
+    frametitle={%
+      \tikz[baseline=(current bounding box.east),outer sep=0pt]
+      \node[anchor=east,rectangle,fill=red!30]{\strut{Observación~\theobs}\ifstrempty{#1}{}{~(\emph{#1})}};%
+    },
+    innertopmargin=10pt,
+    linecolor=red!30,
+    linewidth=3pt,
+    topline=true,
+    frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
+  }
+  \begin{mdframed}
+ }
+ {\end{mdframed}}
+
+%------%
+% Lema %
+%------%
+\newcounter{lema}[section]
+\renewcommand{\thelema}{\thesection.\arabic{lema}}
+\newenvironment{lema}[1][]
+ {%
+  \refstepcounter{lema}%
+  \mdfsetup{%
+    frametitle={%
+      \tikz[baseline=(current bounding box.east),outer sep=0pt]
+      \node[anchor=east,rectangle,fill=blue!30]{\strut{Lema~\thelema}\ifstrempty{#1}{}{~(\emph{#1})}};%
+    },
+    innertopmargin=10pt,
+    linecolor=blue!30,
+    linewidth=3pt,
+    topline=true,
+    frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
+  }
+  \begin{mdframed}
+ }
+ {\end{mdframed}}
+
+%------------%
+% Definición %
+%------------%
+\newcounter{defn}[section]
+\renewcommand{\thedefn}{\thesection.\arabic{defn}}
+\newenvironment{defn}[1][]
+ {%
+  \refstepcounter{defn}%
+  \mdfsetup{%
+    frametitle={%
+      \tikz[baseline=(current bounding box.east),outer sep=0pt]
+      \node[anchor=east,rectangle,fill=violet!30]{\strut{Definición~\thedefn}\ifstrempty{#1}{}{~(\emph{#1})}};%
+    },
+    innertopmargin=10pt,
+    linecolor=violet!30,
+    linewidth=3pt,
+    topline=true,
+    frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
+  }
+  \begin{mdframed}
+ }
+ {\end{mdframed}} 
+
+% Boxed expressions sin referencias
+
+ \newenvironment{question}[1][]{
+\ifstrempty{#1}
+    {}
+    {\mdfsetup{
+        frametitle={
+            \tikz[baseline=(current bounding box.east),outer sep=0pt]
+            \node[anchor=east,rectangle,fill=red!30]
+            {Problema #1};}}
+    }
+    \mdfsetup{
+        innertopmargin=10pt,linecolor=red!30,
+        linewidth=2pt,topline=true,
+        frametitleaboveskip=\dimexpr - \ht\strutbox\relax
+    }
+    \begin{mdframed}
+}{
+    \end{mdframed}
+}
+
+\newenvironment{lem}[1][]{
+\ifstrempty{#1}
+    {}
+    {\mdfsetup{
+        frametitle={
+            \tikz[baseline=(current bounding box.east),outer sep=0pt]
+            \node[anchor=east,rectangle,fill=orange!30]
+            {Lema #1};}}
+    }\newcommand{\coNP}{\ensuremath{\mathsf{coNP}}}
+
+    % Commonly-used reductions add semantic clarity
+    \newcommand{\CookReducesTo}{\ensuremath{\leq^P_T}}
+    \newcommand{\KarpReducesTo}{\ensuremath{\leq^P_m}}
+    \mdfsetup{
+        innertopmargin=10pt,linecolor=orange!30,
+        linewidth=2pt,topline=true,
+        frametitleaboveskip=\dimexpr - \ht\strutbox\relax
+    }
+    \begin{mdframed}
+}{
+    \end{mdframed}
+}
+%-------%
+% FONTS %
+%-------%
+
+% Skip lines and don't indent
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+
+% FONTS
+\RequirePackage[bb=px, bbscaled=0.91,
+  cal=txupr, calscaled=.91,
+  frak=euler,frakscaled=.91,
+  scr=boondoxupr]{mathalpha}
+\let\amsmathbb\mathbb
+\let\amsmathcal\mathcal
+\let\amsmathfrak\mathfrak
+\let\amsmathscr\mathscr
+\AtBeginDocument{%
+    \let\mathbb\relax
+    \newcommand{\mathbb}[1]{\amsmathbb{#1}}
+    \let\mathcal\relax
+    \newcommand{\mathcal}[1]{\amsmathcal{#1}}
+    \let\mathfrak\relax
+    \newcommand{\mathfrak}[1]{\amsmathfrak{#1}}
+    \let\mathscr\relax
+    \newcommand{\mathscr}[1]{\amsmathscr{#1}}
+}
+
+
+% Import math fonts and symbols
+%\RequirePackage{amsfonts}
+%\RequirePackage{amsmath,amsthm,amssymb}
+
+% Palatino typeface -- includes (old-style) text figures
+\RequirePackage[osf]{mathpazo}
+
+
+% ---------- %
+% PARAMETERS %
+% ---------- %
+%\newcommand\course{Probabilidad Avanzada}
+%\newcommand\coursetitle{Tarea 6}
+%\newcommand\prof{Dr. Ehyter Martín González}
+%\newcommand\semester{Enero-Junio 2021}
+\author{Roberto Vásquez Martínez}
+
+%------------------------%
+% Encabezado, numeración %
+%------------------------%
+\usepackage{graphicx}
+
+\usepackage[automark]{scrlayer-scrpage}% sets pagestyle scrheadings automatically
+\clearpairofpagestyles
+\ofoot*{\pagemark}
+\rehead*[]{ Movimiento Browniano }
+\lehead*[]{\headmark}
+\lohead*[]{ Probabilidad Avanzada }
+\rohead*[]{\headmark}
+
+\KOMAoptions{
+  footsepline=1pt:.25\paperwidth,% syntax: footsepline=<thickness>:<length>
+  plainfootsepline,
+  olines,
+  headsepline=0.5pt:\textwidth
+}
+\ModifyLayer[
+  hoffset=0pt,
+  width=\paperwidth,
+  addvoffset=-5pt % move the line up
+]{scrheadings.foot.above.line}
+\RedeclareLayer[
+  clone=scrheadings.foot.above.line
+]{plain.scrheadings.foot.above.line}
+
+%\setkomafont{pagenumber}{\normalfont\sffamily\bfseries}
+\setkomafont{pagehead}{\sffamily}
+\renewcommand*{\sectionmarkformat}{}
+\automark*[section]{section}
+
+\usepackage{microtype}
+\usepackage[inline]{enumitem}
+\usepackage{multicol}
+
+\setlist[1]{parsep=0pt,
+topsep=3pt,
+itemsep=0pt,
+label=\textup{(\roman*)},
+leftmargin=*}
+\setlist[2]{parsep=0pt,
+topsep=3pt,
+itemsep=0pt,
+label=\textup{(\alph*)}, 
+leftmargin=*}
+
+\usepackage{etoolbox}
+
+
+% Numeración Ecuaciones
+\numberwithin{equation}{section}
+
+%-----------------------------%
+% Hipervínculos y referencias %
+%-----------------------------%
+\definecolor{mytitlecolor}{RGB}{115,35,60}
+\definecolor{mysectioncolor}{RGB}{104,34,139}
+\definecolor{coolred}{HTML}{EC7990}
+
+\usepackage[backend=biber,style=apa]{biblatex}
+\usepackage{csquotes}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+\urlstyle{same}
+\addbibresource{refer.bib}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=RobBlue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdfauthor={R. Vasquez},
+    pdftitle={Teorema de Donsker},
+    citecolor=RobBlue
+}
+
+
+% -------- %
+% DOCUMENT %
+% -------- %
+\begin{document}
+
+
+%---------%
+% PORTADA %
+%---------%
+\begin{titlepage}
+	\centering
+    \vspace*{0.0 cm}
+    \begin{figure*}[h!]\centering
+        \begin{minipage}{0.4\textwidth}
+            \includegraphics[width= 3cm]{logo_Cimat.png}            
+        \end{minipage}\hfill
+        \begin{minipage}{0.20\textwidth}
+            \includegraphics[width= 3cm]{logoUG.png}
+        \end{minipage}
+    \end{figure*}
+    \textsc{\LARGE Universidad de Guanajuato}\\[0.3 cm]
+    \textsc{\LARGE CIMAT}\\[2.0 cm]	% Nombre Universidad
+	%\textsc{\Large CC3001-02}\\[0.5 cm]				% Codigo Curso
+	\textsc{\Large Proyecto Final}\\[0.5 cm]
+    {\color{coolred}
+	\rule{\linewidth}{0.2 mm}} \\[0.4 cm]
+	{ \huge \bfseries \color{mytitlecolor}{Teorema de Donsker}}\\
+    {\color{coolred}
+	\rule{\linewidth}{0.2 mm}} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{center} \large
+			\textsc{Autores:}\\[0.25 cm]
+			Roberto Vásquez Martínez\\ [1.0 cm]
+			\textsc{Profesor:}\\[0.25 cm]
+			Dr. Ehyter M. Martín González
+			\end{center}
+	\end{minipage}\\[2 cm]
+	{\normalsize \textsc{8 de junio de 2021}
+    }\\[2 cm]
+	\vfill
+\end{titlepage}
+
+%--------%
+% INDICE %
+%--------%
+
+\tableofcontents
+
+\addtocontents{toc}{\protect\thispagestyle{empty}} % quita numeracion del indice
+
+\pagebreak
+\setcounter{page}{1}
+
+\section{Nota Histórica}
+
+
+\newpage
+
+\section{Introducción}
+
+
+\newpage
+
+%---------------------------------------------
+
+\section{El espacio C}
+Empezaremos presentando al espacio de funciones continuas y algunas propiedades que utilizaremos para describir las medidas de probabilidad en ese espacio y en consecuencia los procesos estocásticos a tiempo continuo.
+
+A lo largo de este escrito consideraremos $C=C[0,1]$, al ser $[0,1]$ compacto y separable en $\R$ entonces $C[0,1]$ es un espacio métrico separable y completo con la métrica 
+\begin{equation*}
+    d(f,g)=\norm{f-g}_{\infty}=\sup_{t\in [0,1]}\abs{f(t)-g(t)}
+\end{equation*}
+
+Al ser $C$ un espacio métrico sea $(C,\ca C)$ es el espacio medible correspondiente donde $\ca C$ es la $\sigma$-álgebra de Borel inducida por le métrica anterior, además denotaremos por $\Po(\ca C)$ el conjunto de medidas de probabilidad en el espacio medible $(C,\ca C)$.
+
+Para cada $f\in E$ y $\delta>0$ definimos el \colemph{módulo de continuidad} como 
+\begin{equation*}
+    \omega_f(\delta)=\omega(f,\delta)=\sup_{\myatop{s,t\in [0,1]}{\abs{s-t}\leq \delta}}\abs{f(s)-f(t)},
+\end{equation*}
+
+esta medida nos dice el grado de continuidad uniforme de $f$.
+
+Por otro lado, para $0\leq t_1<\dots<t_k\leq 1$ definimos las proyecciones naturales \\ $\pi_{t_1,\dots,t_k}:C\rightarrow \R^k$ como 
+\begin{equation*}
+    \pi_{t_1,\dots,t_k}(g)=(g(t_1),\dots,g(t_k)),
+\end{equation*}
+
+lo que nos permite definir la clase de conjuntos finito dimensionales en el espacio $C$
+\begin{equation*}
+    \ca C_f=\{\pi_{t_1,\dots,t_k}^{-1}(H)\ :\ H\in\ca B(\R^k)\}
+\end{equation*}
+
+A continuación enunciamos un resultado que relaciona a $\ca C$ y $\ca C_f$.
+\begin{thm}
+    \label{finite class}
+Con la notación anterior se cumple que 
+\begin{equation*}
+    \ca C=\sigma(\ca C_f),
+\end{equation*}
+además $\ca C_f$ es clase separante en $\Po(\ca C)$.
+\end{thm}
+
+
+El Teorema \ref{finite class} nos dice que $\ca C_f$ es clase separante en $\Po(\ca C)$ pero no es clase determinante de convergencia, a continuación investigaremos una condición suficiente para que $\ca C_f$ sea clase determinante de convergencia, lo que nos ayudará a probar el Teorema de Donsker.
+
+La condición suficiente que estamos buscando para que $\ca C_f$ sea clase determinante de convergencia para la sucesión de medidas de probabilidad $\{\PP_n:n\in\N\}$ es la compacidad de relativa y como $(C,d)$ es un espacio separable  completo, por el \colemph{Teorema de Prohorov} la compacidad relativa de $\{\PP_n:n\in\N\}$ en $\Po(\ca C)$ es equivalente a que $\{\PP_n:n\in\N\}$ sea una familia tensa de medidas de probabilidad.
+
+Bajo esta directriz, enunciamos el \colemph{Teorema de Arzelà-Ascoli}, que caracteriza la compacidad relativa en el espacio $C$.
+\begin{thm}[Arzelà-Ascoli]
+Un conjunto $A\subset C$ es relativamente compacto si y sólo si se cumple las siguientes dos condiciones 
+
+\begin{enumerate}
+    \item
+    \[
+        \sup_{f\in A}\abs{f(0)}<\infty,
+    \]
+    \item
+    \[
+        \lim_{\delta\to 0}\sup_{f\in A}\omega_f(\delta)=0.
+    \]
+\end{enumerate}
+\end{thm}
+
+Con ayuda de este teorema podemos caracterizar la compacidad relativa, lo que es lo mismo la tensión, en $\Po(\ca C)$ con la topología débil a través de este resultado
+
+\begin{thm}
+\label{tight in PC}
+La sucesión $\{\PP_n:n\in\N\}\subset \Po(\ca C)$ es tensa si y sólo si se satisfacen las siguientes condiciones 
+\begin{enumerate}
+    \item Para todo $\eta>0$, existen $a>0$ y $n_0\in \N$ tal que 
+    \[
+        \PP_n\cbk*{f\in C:\abs{f(0)}\geq a}\leq \eta,\ \ n\geq n_0.
+    \]
+    \item Para cada $\varepsilon>0$ y $\eta>0$, existe $\delta$ con $0<\delta<1$ y $n_0\in \N$ tal que 
+    \[
+        \PP_n\cbk*{f\in C:\omega_f(\delta)\geq\varepsilon}\leq\eta,\ \ n\geq n_0.
+    \]
+\end{enumerate}
+\end{thm}
+\begin{proof}
+    Supongamos $\{\PP_n:n\in \N\}$ es tensa. Entonces para todo $\eta>0$ existe $K\subseteq C$ compacto tal que 
+        
+    \begin{equation}
+    \label{tension}
+    \PP_n[K]\geq 1-\eta.
+    \end{equation}
+    
+    Como $K$ es compacto en particular es relativamente compacto en $C$, entonces por el Teorema de Arzelà-Ascoli existe $a$ suficientemente grande tal que 
+    \begin{equation*}
+    K\subset\{f\in C\ :\ \abs{f(0)}< a\},
+    \end{equation*}
+    
+    y para todo $\varepsilon,\eta>0$ existe $\delta\in (0,1)$ tal que 
+    \begin{equation*}
+    K\subset\{f\in C\ :\ w_f(\delta)< \varepsilon\}.
+    \end{equation*}
+    
+    De la monotonía de la medida de probabilidad y \eqref{tension} se sigue 
+    \begin{equation*}
+    \PP_n[\{f\in C\ :\ \abs{f(0)}\geq a\}]\leq \eta,
+    \end{equation*}
+    
+    y
+    \begin{equation*}
+    \PP_n[\{f\in C\ :\ w_f(\delta)\geq \varepsilon\}]\leq \eta,
+    \end{equation*}
+    
+    para todo $n\in\N$, por lo que se cumple (i) y (ii).
+    
+    Supongamos que se cumple (i) y (ii) dados $\eta,\varepsilon>0$.
+    
+    Observamos que 
+    \begin{equation*}
+    A_n=\{f\in C\ :\ \abs{f(0)}\geq n\},
+    \end{equation*}
+    
+    es una sucesión de eventos decreciente tal que $\bigcap_{n=1}^{\infty}A_n=\emptyset$, por lo que\\ para $j=1,\dots,n_0-1$ existe $N_j\in\N$ tal que 
+    
+    \begin{equation*}
+    \PP_j[A_{N_j}]\leq \eta.
+    \end{equation*}
+    
+    Consideremos $N:=\max\{a,N_1,\dots,N_j\}$, luego para toda $n\in\N$ se cumple que 
+    \begin{equation}
+    \label{desigualdad numeral 1}
+    \PP_n[\{f\in C\ :\ \abs{f(0)}\geq N\}]\leq \eta.
+    \end{equation}
+    
+    De manera análoga, notando que la sucesión eventos $\{\{f\in C\ :\ w_f(1/n)\geq \varepsilon\}: n\in\N\}$ es decreciente a $\emptyset$ se tiene que para todo $\varepsilon>0$ y $\eta>0$ existe $\delta\in (0,1)$ suficientemente pequeño tal que
+    \begin{equation*}
+    \PP_n[\{f\in C\ :\ w_f(\delta)\geq \varepsilon\}]\leq \eta.
+    \end{equation*}
+    
+    Por lo tanto, para cada $k\in\N$ existe $\delta_k>0$ tal que si  $B_k=\{f\in C\ :\ w_f(\delta_k)<1/k\}$ entonces
+    \begin{equation}
+    \label{desigualdad numeral 2 Bk}
+    \PP_n[B_k]\geq 1-\frac{\eta}{2^{k+1}}.
+    \end{equation}
+    
+    Por  \eqref{desigualdad numeral 1} existe $N>0$ tal que si $B=\{f\in C\ :\ \abs{f(0)}< N\}$ entonces
+    \begin{equation}
+    \label{desigualdad numeral 1 B}
+    \PP_n[B]\geq 1-\frac{\eta}{2}.
+    \end{equation}
+    
+    Consideremos
+    \begin{equation*}
+    A=B\cap \cpp*{\bigcap_{k=1}^{\infty}B_k},
+    \end{equation*}
+    
+    y $K=\overline{A}$, entones $K^c\subseteq A^c$, luego 
+    \begin{equation*}
+    K^c\subseteq B^c\cup \cpp*{\bigcup_{k=1}^{\infty}B_k^c}.
+    \end{equation*}
+    
+    De la monotonía y subaditividad de las medidas de probabilidad obtenemos
+    \begin{align*}
+    \PP_n[K^c]\leq \PP_n[B^c]+\sum_{k=1}^{\infty}\PP_n[B_k^c].
+    \end{align*}
+    
+    Por \eqref{desigualdad numeral 2 Bk} y \eqref{desigualdad numeral 1 B} tenemos
+    \begin{equation*}
+    \PP_n[K^c]\leq\frac{\eta}{2}+\sum_{k=1}^{\infty}\frac{\eta}{2^{k+1}}=\eta.
+    \end{equation*}
+    
+    Por lo tanto 
+    \begin{equation}
+    \label{tension condicion suficiente}
+    \PP_n[K]\geq 1-\eta.
+    \end{equation}
+    
+    Observamos que 
+    \begin{equation*}
+    \sup_{f\in A}\abs{f(0)}<N<\infty.
+    \end{equation*}
+    
+    Por otro lado, por la propiedad arquimediana para todo $\varepsilon>0$ existe $k\in\N$ con $1/k<\varepsilon$ y a su vez existe $\delta_k$ tal que 
+    \begin{equation*}
+    w_f(\delta_k)<\frac{1}{k}\ \ \text{ para cada } f\in A, 
+    \end{equation*}
+    
+    luego 
+    \begin{equation*}
+    \sup_{f\in A}w_f(\delta_k)\leq\frac{1}{k},
+    \end{equation*}
+    
+    por lo que 
+    \begin{equation*}
+    \lim_{\delta\to 0}\sup_{f\in A}w_f(\delta)=0.
+    \end{equation*}
+    
+    De esto y mediante el Teorema de Arzelà-Ascoli llegamos a que $A$ es relativamente compacto por lo que $K$ es un conjunto compacto en $C$ y por \eqref{tension condicion suficiente} concluimos $\{\PP_n:n\in\N\}$ es una sucesión de medidas de probabilidad tensa, que es lo que queríamos probar.
+\end{proof}
+\begin{obs}
+    \label{second conditions relative compactness}
+    Observamos que para $\delta$ fijo $\omega(\cdot,\delta)$ es medible por ser una función continua. La condición (ii) en el Teorema \ref{tight in PC} es equivalente a que para todo $\varepsilon>0$
+    \[
+        \lim_{\delta\to 0}\limsup_{n\to\infty}\PP_n\cbk*{\{f\in C:\omega_f(\delta)\geq\varepsilon\}}=0.
+    \]
+\end{obs}
+
+Ahora enunciaremos una desigualdad que nos servirá más adelante
+
+\begin{lema}
+    \label{second condition lemma}
+    Sea $\PP\in \Po(\ca C)$ y $\delta>0$, si $0=t_0<t_1<\dots<t_k=1$ y 
+    \[
+        \min_{1<i<k}(t_i-t_{i-1})\geq\delta,
+    \]
+    entonces para cualquier $\varepsilon>0$
+    \[
+        \PP\cbk{\cbr{f\in C: \omega_f(\delta)}\geq 3\varepsilon}\leq \PP\cbk{\cbr{f\in C: \sup_{t_{i-1}\leq s\leq t_i}\abs{f(s)-f(t_{i-1})}\geq\varepsilon}}.
+    \]
+\end{lema}
+
+Hemos especificado algunas propiedades del espacio $C$ que nos servirán para tratar la convergencia débil de medidas de probabilidad en este espacio, ahora detallaremos como se ven los elementos aleatorios con un dominio un espacio de probabilidad abstracto $\ofp$ y rango $C$. 
+
+Ejemplificando la idea ya hemos estudiado variables aleatorias como funciones medibles de la forma $X:\Omega\to \R$, vectores aleatorios como funciones medibles $X:\Omega\to\R^k$ y procesos estocásticos a tiempo discreto como una función medible $X:\Omega\to\R^{\N}$, en este último caso se cumple que la clase de conjuntos finito dimensionales, que se define de manera similar a como lo hemos hecho, es clase determinante de convergencia.
+
+Generalizando los procesos estocásticos a tiempo discreto están los procesos estocásticos a tiempo continuo, un ejemplo de esto sería el Proceso Poisson. A un proceso estocástico a tiempo continuo lo podemos ver como una función medible de la forma $X:\Omega\to C$, este tipo de función induce una medida de probabilidad que estará en $\Po(\ca C)$ que será la distribución del proceso, con esta idea en mente podemos estudiar la convergencia débil de procesos estocásticos a tiempo continuo considerando sus la convergencia débil de sus distribuciones en $\Po(\ca C)$. 
+
+
+\subsection{Elementos Aleatorios en C}
+
+Sea $\ofp$ un espacio de probabilidad y $(C,\ca C)$ el espacio medible asociado al espacio métrico $C$, consideraremos un elemento aleatorio sobre $C$ a una función $X:\Omega\to C$ que es $\ca F\backslash \ca C$-medible, esto es para cada $\omega\in\Omega$ se tiene que $X(\cdot,\omega):[0,1]\rightarrow\R$ es un elemento de $C$, es decir, una función continua.
+
+Simplificando la notación, para $t\in [0,1]$ fijo  sea $X_t:=X(t,\cdot):\Omega\rightarrow\R$, que es una función real con dominio $\Omega$, observamos que 
+\begin{equation*}
+    X_t=\pi_t\circ X,
+\end{equation*}
+
+luego $X_t$ es la proyección natural de $X$ en $t$. 
+
+Podemos considerar proyecciones más generales, para $0\leq t_1<\dots<t_k\leq 1$ sea 
+\begin{equation*}
+    (X_{t_1},\dots,X_{t_k})=\pi_{t_1,\dots,t_k}\circ X.
+\end{equation*}
+
+Como $X$ es $\ca F\backslash\ca C$-medible y por el Teorema \ref{finite class} tenemos que $\pi_{t_1,\dots,t_k}$ es $\ca C\backslash\ca B(\R^k)$-medible entonces $\pi_{t_1,\dots,t_k}\circ X$ es $\ca F\backslash\ca B(\R^k)$-medible, este hecho nos permite definir la familia de distribuciones finito-dimensionales del proceso $X$.
+
+\begin{defn}
+Sea $X:\Omega\to C$ un elemento aleatorio, la distribución de $X$ es 
+\[
+    \PP_X\cbk*{B}:=\PP\cbk*{X^{-1}(B)}\text{  con  }B\in\ca C,
+\]
+luego $\PP_X\in\Po(\ca C)$ y sea
+\[
+    \PP_X\circ\pi_{t_1,\dots,t_k}^{-1}(H):=\PP\cbk*{(X_{t_1},\dots,X_{t_k})\in H}=\PP_X\cbk*{\pi_{t_1,\dots,t_k}^{-1}(H)}\text{  con  }H\in\ca B(\R^k).
+\]
+A la familia de medidas de probabilidad
+\[
+    \cbr*{\PP_X\circ\pi_{t_1,\dots,t_k}^{-1} : 0\leq t_1<\dots,t_k\leq 1},
+\]
+la denominamos como la familia de distribuciones finito dimensionales de $X$.
+\end{defn}
+
+La definición anterior nos permite relacionar la convergencia de procesos en $C$ con la convergencia débil de medidas de probabilidad en $\Po(\ca C)$. 
+
+\begin{defn}
+    Decimos que una sucesión de elementos aleatorios $\{X^n:n\in\N\}$ converge a un elemento aleatorio en $X$, que escribimos como $X^n\Rightarrow X$ si $\PP_{X^n}\Rightarrow\PP_X$ cuando $n\to\infty$.
+\end{defn}
+
+En base a la caracterización de tensión de una familia de medidas de probabilidad que hemos descrito en esta sección y la definición de convergencia débil de procesos podemos relacionar la convergencia débil de procesos en $C$ con la convergencia de los procesos definidos por las proyecciones canónicas mediante este resultado
+
+\begin{thm}
+\label{weak convergence in C}
+Sean $\{X^n:n\in\N\},X$ elementos aleatorios en $C$ con dominio un espacio de probabilidad $\ofp$. Si 
+\begin{enumerate}
+    \item \[ (X_{t_1}^n,\dots,X_{t_k}^n)\Rightarrow (X_{t_1},\dots,X_{t_k})\text{  para  }0\leq t_1<\dots<t_k\leq 1.\]
+    \item Para todo $\varepsilon>0$
+    \[
+        \lim_{\delta\to 0}\limsup_{n\to\infty}\PP\cbk*{\omega(X^n,\delta)\geq\varepsilon}=0.
+    \]
+\end{enumerate}
+entonces $X^n\Rightarrow X$ cuando $n\to\infty$.
+\end{thm}
+\begin{proof}
+    Sean $\PP_X$ y $\cbr*{\PP_{n}: n\in\N}$ las distribuciones de $X$ y $\{X^n:n\in\N\}$, respectivamente. Notamos que la condición (i) es equivalente a 
+    \[
+        \PP_{n}\circ \pi_{t_1,\dots,t_k}^{-1}\Rightarrow \PP_X\circ\pi_{t_1,\dots,t_k}^{-1}.
+    \]
+
+    Queremos demostrar que $\PP_{n}\Rightarrow\PP_X$. Como la clase de conjuntos finito dimensionales es separante por el Teorema \ref{finite class}, entonces por la Proposición 2.4 de \cite{martingonzalezProbabilidadAvanzada2021} basta demostrar que $\{\PP_{n}: n\in\N\}$ es relativamente compacto que en el espacio $C$ es equivalente a tensión. 
+
+    Sabemos que $\PP_{n}\circ \pi_0^{-1}\Rightarrow\PP_X\circ \pi_0^{-1}$, luego $\{\PP_{n}\circ \pi_0^{-1}: n\in\N\}$ es tensa en el espacio medible $(\R,\ca B(\R))$, por lo que para todo $\eta>0$ existe $K\subset \R$ compacto tal que 
+    \[
+        \PP_{n}\circ\pi_0^{-1}\cbk*{K}\geq 1-\eta.
+    \]
+
+    Al ser $K\subset\R$ compacto por el Teorema de Heine-Borel existe $a>0$ tal que $K\subset (-a,a)$
+    \[
+        \PP_{n}\circ\pi_0^{-1}\cbk*{x\in\R: \abs{x}\geq a}\leq\eta,
+    \]
+    que equivale a 
+    \[
+        \PP_{n}\cbk*{f\in C: \abs{f(0)}\geq a}\leq \eta,
+    \]
+    lo que verifica la condición (i) del Teorema \ref{tight in PC} para la familia de medidas de probabilidad $\cbr*{\PP_{n}:n\in\N}$.
+
+    Observamos que para todo $\varepsilon$.
+    \[
+        \PP_n\cbk*{f\in C: \omega_f(\delta)\geq \varepsilon}=\PP\cbk*{\omega(X^n,\delta)\geq\varepsilon},
+    \]
+    de esto y la Observación \ref{second conditions relative compactness} se tiene que la condición (ii) de este Teorema es equivalente a la condición (ii) del Teorema \ref{tight in PC}.
+
+    Por el Teorema \ref{tight in PC} concluimos $\{\PP_n:n\in\N\}$ es una familia de medidas de probabilidad tensa, que es lo que queríamos probar.
+\end{proof}
+
+
+\newpage
+%---------------------------------------------
+
+\section{Medida de Wiener}
+
+En $C$ podemos considerar un proceso basado en las proyecciones naturales, recordemos que para $t\in [0,1]$ se tiene que $\pi_t:C\to \R$ es una función $\ca C\backslash\ca B(\R)$-medible, luego si definimos $P_t:C\to\R$ como 
+\[
+    P_t(f)=\pi_t(f)=f(t),
+\]
+tenemos que $P_t$ es $\ca C\backslash\ca B(\R)$-medible, en consecuencia es una variable aleatoria. Podemos considerar el proceso $P:=\cbr*{P_t:t\in [0,1]}$, además $P_t(f)$ es continua en $t$ pues $f$ es una función continua, por lo que $P$ es formalmente un elemento aleatorio en $C$.
+
+Para demostrar la versión funcional del TLC o Teorema de Donsker describiremos el proceso límite, la medida de probabilidad correspondiente inducida por la distribución del proceso límite es conocida como la \colemph{Medida de Wiener}, que definiremos a continuación
+
+\begin{defn}
+\label{wiener measure}
+La medida de Wiener, que denotaremos por $\mathbb{W}$, es una medida de probabilidad en $(C,\ca C)$ que tiene las siguientes propiedades.
+\begin{enumerate}
+    \item 
+    \[
+        \mathbb{W}\cbk*{P_0=0}=1
+    \]
+    \item $P_t$ tiene distribución normal con media $0$ y varianza $t$ bajo $\mathbb{W}$, es decir,
+    \[
+        \mathbb{W}\cbk*{P_t\leq \alpha}=\frac{1}{\sqrt{2\pi t}}\int_{-\infty}^{\alpha}e^{-\frac{u^2}{2t}}du.
+    \]
+    \item Si $0\leq t_0\leq t_1<\dots< t_k=1$ entonces la colección de variables aleatorias $\cbr*{P_{t_i}-P_{t_{i-1}}: i=1,\dots,n}$ son independientes respecto a la medida $\mathbb{W}$.
+\end{enumerate}
+\end{defn}
+
+Para que la definición anterior sea apropiada, debemos demostrar que en efecto dicha medida en $(C,\ca C)$ existe, para probar la existencia de la medida de Wiener utilizaremos el siguiente resultado
+\clearpage
+\begin{thm}[Continuidad de Kolmogorov]
+\label{continuity kolmogorov}
+Sea $\xi=\cbr*{\xi_{t}:t\in [0,1]}$ un proceso estocástico y $\PP_{t_0,\dots,t_k}$ la distribución del vector $(\xi_{t_0},\dots,\xi_{t_k})$ en $\R^k$. Si existen constantes $\alpha,\delta,K>0$ tal que 
+\[
+    \EE\cbk*{\abs{\xi_{t}-\xi_{s}}^{\alpha}}\leq K\abs{t-s}^{1+\delta},
+\]
+para todo $t,s\in [0,1]$, entonces existe una única medida $\mu$ en $(C,\ca C)$ tal que 
+\[
+    \PP_{t_0,\dots,t_k}=\mu\circ \pi_{t_1,\dots,t_k}^{-1},
+\]
+para todo $k\in\N$ y $t_0,\dots,t_k\in [0,1]$.
+\end{thm}
+
+A continuación demostraremos la existencia de la medida de Wiener.
+\begin{thm}
+    \label{thm wiener}
+    Existe una medida $\mathbb{W}$ en el espacio medible $(C,\ca C)$ que cumple con las condiciones de la Definición \ref{wiener measure}.
+\end{thm}
+\begin{proof}
+    Por el Teorema de Consistencia de Kolmogorov existe un proceso estocástico $\xi:=\cbr*{\xi_t:t\in [0,1]}$ sobre el espacio de probabilidad $\ofp$ tal que se cumple lo siguiente 
+    \begin{enumerate}
+        \item La variable $\xi_t-\xi_s$ tiene distribución normal con media $0$ y varianza $t-s$ con $0\leq s< t\leq 1$.
+
+        \item Si $0\leq t_0<\dots<t_k\leq 1$ las variables aleatorias $\cbr*{\xi_{t_i}-\xi_{t_{i-1}}:i=1,\dots,k}$ son independientes.
+    \end{enumerate}
+    Notamos que bajo estas condiciones la distribución del vector $(\xi_{t_0},\xi_{t_1}-\xi_{t_0},\dots,\xi_{t_k}-\xi_{t_{k-1}})$ considerando la función de distribución normal centrada con varianza $\sigma^2$ como $\Phi_{\sigma^2}$ es
+    \[
+        \PP_{t_0,t_1-t_0,\dots,t_k-t_{k-1}}\cbk*{\xi_{t_0}\leq \alpha_0,\xi_{t_1}-\xi_{t_0}\leq \alpha_1,\dots,\xi_{t_k}-\xi_{t_{k-1}}\leq \alpha_k}=\Phi_{t_0}(\alpha_0)\cdot\prod_{i=1}^k\Phi_{t_i-t_{i-1}}(\alpha_i),
+    \]
+    por lo que la distribución del vector $(\xi_{t_0},\xi_{t_1}-\xi_{t_0},\dots,\xi_{t_k}-\xi_{t_{k-1}})$ es una normal multivariada con media $0$ y matriz de covarianzas $\text{diag}(t_0,t_1-t_0,\dots,t_{k}-t_{k-1})$.
+
+    Observamos que esto determina la distribución del vector $(\xi_{t_0},\xi_{t_1},\dots,\xi_{t_k})$, que es normal multivariada pues este vector aleatorio es una transformación lineal del vector $(\xi_{t_0},\xi_{t_1}-\xi_{t_0},\dots,\xi_{t_k}-\xi_{t_{k-1}})$, nos quedamos con la distribución de este último vector aleatorio por simplicidad.
+    
+    Ahora por el Teorema de Isserlis tenemos que 
+    \[
+        \EE\cbk*{\abs{\xi_t-\xi_s}^4}=3(\EE\cbk*{\xi_t-\xi_s}^2)^2=3\abs{t-s}^2,
+    \]
+    por lo que se satisfacen las condiciones del Teorema \ref{continuity kolmogorov}, luego existe una única medida $\mathbb{W}$ en $(C,\ca C)$, tal que 
+    \[
+        \PP_{t_0,t_1-t_0,\dots,t_k-t_{k-1}}\cbk*{\xi_{t_0}\leq\alpha_0,\xi_{t_1}-\xi_{t_0}\leq \alpha_1,\dots,\xi_{t_k}-\xi_{t_{k-1}}\leq \alpha_k}=W\circ \pi_{t_0,t_1-t_0,\dots,t_k-t_{k-1}}^{-1}\cbk*{(-\infty,\boldsymbol{\alpha}]},
+    \]
+    donde $\boldsymbol{\alpha}=(\alpha_0,\dots,\alpha_k)$ y 
+    \[
+        (-\infty,\boldsymbol{\alpha}]=\cbr*{x:=(x_0,\dots,x_k)\in\R^{k+1}:x_i\leq \alpha_i\text{ para }i=0,1,\dots,k}.
+    \]
+
+    Por lo tanto $\mathbb{W}$ satisface las condiciones (ii) y (iii) de la Definición \ref{wiener measure}.
+
+    Para verificar la condición (i) basta notar que $\xi_{1/n^2}\ar{P}0$ respecto a la medida $\mathbb{W}$ cuando $n\to\infty$, luego para todo $\varepsilon>0$
+    \[
+      \lim_{n\to\infty}\mathbb{W}\cbk*{\abs{P_{1(n^2)}}>\varepsilon}=\lim_{n\to\infty}\PP\cbk*{\abs{\xi_{1/n^2}}>\varepsilon}=0, 
+    \]
+    y por la continuidad del proceso $P$ se tiene que 
+    \[
+        \mathbb{W}\cbk*{\abs{P_0}>\varepsilon}=0,
+    \]
+    por lo que $\mathbb{W}\cbk*{P_0=0}=1$, lo que concluye la prueba.
+\end{proof}
+
+Dado que en el Teorema de Donsker nos interesa el límite de una convergencia débil de procesos es útil obtener a partir de la medida de Wiener una proceso con distribución dicha medida.
+
+\begin{obs}
+\label{process wiener}
+El proceso $P=\{P_t: t\in [0,1]\}$ es un elemento aleatorio en $C$ cuya distribución es la medida $W$, al proceso $P$ se le conoce como \colemph{Movimiento Browniano}. 
+\end{obs}
+
+A partir de este punto ya tenemos las herramientas necesarias para por fin enunciar el Teorema de Donsker y darle una demostración, tema central de la siguiente sección.
+
+\newpage
+
+%-------------------------------------------------------
+\section{Teorema de Donsker}
+
+Empezamos considerando $\{\xi_n:n\in\N\}$ un conjunto de variables aleatorias sobre el espacio de probabilidad $\ofp$ independientes e idénticamente distribuidas con media 0 y varianza $\sigma^2$.
+
+Definimos $S_0=0$ y para $n\in\N$ 
+\[
+    S_n=\xi_1+\dots+\xi_n.
+\]
+
+Para $n\in\N$ y $i=1,\dots,n$ consideramos los puntos $i/n\in [0,1]$ y definimos 
+\begin{equation*}
+    X_n(i/n,\omega)=\frac{1}{\sigma\sqrt{n}}S_i(\omega)\ \ \text{ para }\omega\in\Omega.
+\end{equation*}
+
+Se define tambien $X^n(t,\omega)$ para $t\in [0,1]$ a través de una interpolación lineal, esto es para $t\in [(i-1)/n,i/n]$ 
+\begin{align*}
+    X_n(t,\omega)=&\frac{(i/n)-t}{1/n}X_n((i-1)/n,\omega)+\frac{t-(i-1)/n}{1/n}X_n(i/n,\omega)\\ 
+    =&\frac{1}{\sigma\sqrt{n}}S_{i-1}(\omega)+n\cpp*{t-\frac{i-1}{n}}\frac{1}{\sigma\sqrt{n}}\xi_i(\omega).
+\end{align*}
+
+Observamos que si $t\in [(i-1)/n,i/n)$ entonces $\floor{nt}=i-1$, entonces podemos definir $X^n(t,\omega)$ de forma más concisa
+\begin{equation}
+    \label{donsker process}
+    X_n(t,\omega)=\frac{1}{\sigma\sqrt{n}}S_{\floor{nt}}(\omega)+(nt-\floor{nt})\frac{1}{\sigma\sqrt{n}}\xi_{\floor{nt}+1}(\omega).
+\end{equation}
+
+A partir de la definición anterior se tiene que para $t$ fijo $X_n(t,\cdot):\Omega\to\R$ es una variable pues $S_{\floor{nt}}$ es una variable aleatoria, además para $\omega \in\Omega$ fijo, por ser $X_n(\cdot,\omega):[0,1]\to\R$ una interpolación lineal entonces esta función es continua, por lo que $X_n:\Omega\to C$ es un elemento aleatorio en $C$ definido de la siguiente forma 
+\[
+    X_n(\omega)=X_n(\cdot,\omega),
+\] 
+y abusando un poco de la notación usaremos $X_n$ como función o elemento aleatorio según el contexto, pero la explicación anterior debería liberar de cualquier ambigüedad.
+
+Notamos que el proceso $X_n$ definido en \eqref{donsker process} es similar a la suma de variables aleatorias centrada y escalada en el caso continuo. 
+
+Antes de enunciar y demostrar el Teorema de Donsker enunciaremos los siguientes lemas:
+
+\begin{lema}
+\label{first inequality}
+Para todo $\varepsilon>0$ y $\delta\in (0,1)$ si $\lambda=\frac{\varepsilon}{\sqrt{2\delta}}$ existe $n_0\in\N$ tal que para $n\geq n_0$ existe $m:=m(n)\in\N$ de modo que
+\[
+    \PP\cbk{\omega(X_n,\delta)\geq 3\varepsilon}\leq \frac{4\lambda^2}{\varepsilon^2}\cdot\PP\cbk*{\max_{j\leq m}\abs{S_j}\geq \lambda\sigma\sqrt{m}}.
+\]
+\end{lema}
+\begin{proof}
+    Consideremos $0=t_0<t_1<\dots<t_k=1$ de la forma 
+    \[
+        t_i=\frac{m_i}{n}\ \ \text{ para } i=1,2,\dots,k.
+    \]
+    con $m_i\in\N$.
+
+    Si $\min_{1<i<k}(t_i-t_{i-1})\geq\delta$ entonces por el Lema \ref{second condition lemma} se tiene que 
+    \begin{equation}
+        \label{inequality difference supremus}
+        \PP\cbk{\omega(X_n,\delta)\geq 3\varepsilon}\leq \sum_{i=1}^k\PP\cbk*{\sup_{t_{i-1}\leq s\leq t_i}\abs{X_n(s)-X_n(t_{i-1})}\geq\varepsilon}
+    \end{equation}
+    
+    Sea $m=\ceil{n\delta}$, si tomamos 
+    \[
+        m_i=i\cdot m\ \ \text{ para }i=0,1,\dots,k-1,
+    \]
+    y
+    \[
+        m_k=n,
+    \]
+    entonces para $1\leq i<k$
+    \[
+        m_i-m_{i-1}=m\geq n\delta,
+    \]  
+    y si a partir de esta definición de $m_i$ consideramos $t_i$ como antes tenemos 
+    \[
+        t_i-t_{i-1}\geq \delta\ \ \text{ para }i=1,\dots,k-1.
+    \]
+    Con esta elección de la partición $\cbr{t_i:i=0,1,\dots,k}$ se sigue cumpliendo la desigualdad en \eqref{inequality difference supremus}.
+
+    Por la definición de $X_n$ y la elección de la partición $\cbr{t_i:i=0,1,\dots,k}$ de $[0,1]$ se tiene que 
+    \[
+        \sup_{t_{i-1}\leq s\leq t_i}\abs{X_n(s)-X_n(t_{i-1})}=\max_{m_{i-1}\leq j\leq m_{i}}\frac{1}{\sigma{\sqrt{n}}}\cdot\abs{S_j-S_{m_{i-1}}}\ \ \text{ para }i=1,2,\dots,k.
+    \]
+
+    Al ser $\cbr{\xi_n:n\in\N}$ variables aleatorias independientes e idénticamente distribuidas se sigue que $S_j-S_{m_{i-1}}$ tiene la misma distribución que $S_{j-m_{i-1}}$ y haciendo un cambio de variable llegamos a que 
+    \[
+        \PP\cbk*{\max_{m_{i-1}\leq j\leq m_i}\frac{1}{\sigma\sqrt{n}}\abs{S_j-S_{m_{i-1}}}\geq\varepsilon}=\PP\cbk*{\max_{j\leq m_i-m_{i-1}}\abs{S_j}\geq\varepsilon\sigma\sqrt{n}}\ \ \text{ para }i=1,2,\dots,k.
+    \]
+
+    Por otro lado, elegimo $k=\ceil{n/m}$, como $m=n\delta$ y $\delta\in (0,1)$ entonces $k\geq 1$, pues la función techo es monótona creciente. 
+
+    Con esta elección de $k$ se tiene que 
+    \[
+        k-1\leq \frac{n}{m}< k,
+    \]
+    de lo que se sigue  
+    \[
+        m_{k-1}\leq m_k=n<km,
+    \]
+    por lo que en este caso 
+    \[
+        m_k-m_{k-1}<m,
+    \]
+    y se tiene así que
+    \[
+        m_i-m_{i-1}\leq m\ \ \text{ para }i=1,2,\dots,k,
+    \]
+    por lo cual tenemos la siguiente desigualdad
+    \[
+        \PP\cbk*{\max_{m_{i-1}\leq j\leq m_i}\frac{1}{\sigma\sqrt{n}}\abs{S_j-S_{m_{i-1}}}\geq\varepsilon}\leq \PP\cbk*{\max_{j\leq m}\abs{S_j}\geq\varepsilon\sigma\sqrt{n}}\ \ \text{ para }i=1,2,\dots,k.
+    \]
+
+    De esta última desigualdad y \eqref{inequality difference supremus} obtenemos que
+    \begin{equation}
+        \label{with max sum}
+        \PP\cbk{\omega(X_n,\delta)\geq 3\varepsilon}\leq k\cdot \PP\cbk*{\max_{j\leq m}\abs{S_j}\geq \varepsilon\sigma\sqrt{n}}.
+    \end{equation}
+
+    Ahora como $m=\ceil{n\delta}$ entonces
+    \[
+        \lim_{n\to\infty}\ceil{n/m}=\frac{1}{\delta}>\frac{2}{\delta},
+    \]
+    y
+    \[
+        \lim_{n\to\infty}n/m=\frac{1}{\delta}>\frac{1}{2\delta}.
+    \]
+    
+    De los límites anteriores podemos concluir que existe $n_0\in\N$ tal que para $n\geq n_0$ se tiene que 
+    \[
+        k<\frac{2}{\delta}\ \ \text{ y }\ \ n>\frac{m}{2\delta}.
+    \]
+
+    Por lo tanto, por monotonía de la medida de probabilidad y la desigualdad en \eqref{with max sum} llegamos a que 
+    \[
+        \PP\cbk{\omega(X_n,\delta)\geq 3\varepsilon}\leq \frac{2}{\delta}\cdot \PP\cbk*{\max_{j\leq m}\abs{S_j}\geq\varepsilon\sigma\sqrt{\frac{m}{2\delta}}}\ \ \text{ para }n\geq n_0.
+    \]
+
+    Con el cambio de variable $\lambda=\varepsilon/\sqrt{2\delta}$ realizando los cálculos correspondientes en la desigualdad anterior obtenemos
+    \[
+        \PP\cbk{\omega(X_n,\delta)\geq 3\varepsilon}\leq \frac{4\lambda^2}{\varepsilon^2}\cdot \PP\cbk*{\max_{j\leq m}\abs{S_j}\geq\lambda\sigma\sqrt{m}}\ \ \text{ para }n\geq n_0,
+    \]
+    y esta es la desigualdad que queríamos probar.
+\end{proof}
+
+Ahora enunciamos la siguiente desigualdad que será útil para nuestros propósitos.
+
+\begin{lema}
+\label{ottaviani}
+Con las mismas consideraciones para $\{\xi_n:n\in\N\}$ y las sumas parciales como al principio de esta sección se cumple que 
+\[
+    \PP\cbk*{\max_{j\leq m}\abs{S_j}\geq\lambda\sigma\sqrt{m}}\leq 2\cdot \PP\cbk{\abs{S_m}\geq (\lambda-\sqrt{2})\sigma\sqrt{m}}.  
+\]
+\end{lema}
+
+Con estos resultados estamos listos para por fin enunciar formalmente y demostrar el \colemph{Teorema de Donsker}.
+
+\begin{thm}[Teorema de Donsker]
+\label{theo donsker}
+Sea $W$ el elemento aleatorio en $C$ con distribución la medida de Wiener $\mathbb{W}$ y $\{X_n:n\in\N\}$ la familia de elementos aleatorios en $C$ definidos en \eqref{donsker process}. Entonces se cumple que 
+\[
+    X_n\Rightarrow W,
+\]
+cuando $n\to\infty$.
+\end{thm}
+\begin{proof}
+    En primer lugar, veamos que las distribuciones finito dimensionales de $\{X_n:n\in\N\}$ convergen a las distribuciones finito dimensionales de $W$.
+
+    Primero veamos que para $t\in [0,1]$ se cumple que 
+    \[
+        X_n(t)\ar{d}W_t.
+    \]
+
+    Por \eqref{donsker process} se tiene 
+    \[
+        \abs{X_n(s)-\frac{1}{\sigma\sqrt{n}}S_{\floor{nt}}}\leq \frac{1}{\sigma\sqrt{n}}\abs{\xi_{\floor{nt}}}.  
+    \]
+    
+    Mediante un argumento usando la desigualdad de Chebyshev llegamos a que 
+    \[
+        \frac{1}{\sigma\sqrt{n}}\xi_{\floor{nt}}\ar{P}0.  
+    \]
+    luego
+    \begin{equation}
+        \label{in probability}
+        \abs*{X_n(t)-\frac{1}{\sigma\sqrt{n}}S_{\floor{nt}}}\ar{P}0.
+    \end{equation}
+
+    Por otro lado, se ve que $\floor{nt}/n\to t$ cuando $n\to\infty$ y 
+    \[
+        \frac{1}{\sigma\sqrt{n}}S_{\floor{nt}}=\sqrt{\frac{\floor{nt}}{n}}\frac{1}{\sigma \sqrt{\floor{nt}}}S_{\floor{nt}}.
+    \]
+    
+    Del Teorema \ref{thm wiener} se tiene que $W_t$ es normal con media $0$ y varianza $t$, con esta observación y por el TLC se tiene que 
+    \[
+        \frac{1}{\sigma\sqrt{n}}S_{\floor{nt}}\ar{d}W_t,
+    \]
+    de esto y \eqref{in probability} se sigue a través del Teorema de Slutsky que 
+    \[
+        X_n(t)\ar{d}W_t.  
+    \]
+
+    Ahora para probar la condición (i) del Teorema \ref{weak convergence in C} basta con probar para $t,s\in [0,1]$ con $t<s$ que 
+    \begin{equation}
+        \label{finite dimensional donsker}
+        (X_n(t),X_n(s))\ar{d} (W_t,W_s).
+    \end{equation}
+
+    Observamos que si probamos 
+    \[
+        (X_n(t),X_n(s)-X_n(t))\ar{d} (W_t,W_s-W_t),
+    \]
+    tenemos la convergencia en \eqref{finite dimensional donsker} como consecuencia del Teorema de Mapeo Continuo ya que $(X_n(t),X_n(s))$ es una transformación lineal del vector aleatorio $(X_n(t),X_n(s)-X_n(t)).$
+
+    Por \eqref{in probability} y el Teorema de Slutsky es suficiente con demostrar 
+    \[
+        \cpp*{\frac{1}{\sigma\sqrt{n}}S_{\floor{nt}},\frac{1}{\sigma\sqrt{n}}(S_{\floor{ns}}-S_{\floor{nt}})}\ar{d} (W_t,W_s-W_t).
+    \]
+    Ya sabemos que se tiene la convergencia en distribución por coordenadas y como las variables aleatorias en cada entrada son independientes también se tiene la convergencia en distribución de la conjunta, de lo que se concluye la convergencia de las distribuciones finito dimensionales de $\{X_n:n\in\N\}$ a las finito dimensionales de $W$, lo que verifica la condición (i) del Teorema \ref{weak convergence in C}.
+
+    Ahora verifiquemos la condición (ii) del Teorema \ref{weak convergence in C}. 
+
+    Sabemos por el Lema \ref{first inequality} que para todo $\varepsilon>0$ y $\delta\in (0,1)$ existe $n_0\in\N$ tal que para $n\geq n_0$ y con $m=\ceil{n\delta}$ y $\lambda=\frac{\varepsilon}{\sqrt{2\delta}}$ se cumple que
+    \[
+        \PP\cbk{\omega(X_n,\delta)>3\varepsilon}\leq \frac{4\lambda^2}{\varepsilon^2}\cdot\PP\cbk*{\max_{j\leq m}\abs{S_j}\geq\lambda\sigma\sqrt{m}},  
+    \]
+    y por el Lema \ref{ottaviani} tenemos que 
+    \[
+        \PP\cbk{\omega(X_n,\delta)>3\varepsilon}\leq \frac{8\lambda^2}{\varepsilon^2}\cdot \PP\cbk*{\frac{1}{\sigma\sqrt{m}}\abs{S_m}\geq \lambda-\sqrt{2}}\ \ \text{ para }n\geq n_0.
+    \]
+
+    Si $n\to\infty$ y $m=\ceil{n\delta}$ para $\delta$ fijo $m\to\infty$, si $N$ es una variable aleatoria normal estándar con dominio el espacio de probabilidad $\ofp$, entonces por el TLC se tiene que 
+    \[
+    \limsup_{n\to\infty}\PP\cbk{\omega(X_n,\delta)>3\varepsilon}\leq\frac{8\lambda^2}{\varepsilon^2}\PP\cbk{\abs{N}\geq\lambda-\sqrt{2}}.    
+    \]
+    
+    Como tomaremos $\delta\to 0^+$ entonces existe $\delta$ tal que $\lambda>2\sqrt{2}$ para ese $\delta$ y todos los menores a el, por lo que 
+    \[
+        \frac{\lambda}{2}>\sqrt{2},
+    \]
+    luego 
+    \[
+        \lambda-\sqrt{2}>\frac{\lambda}{2},
+    \]
+    y de la monotónia de la medida de probabilidad se sigue que 
+    \[
+        \limsup_{n\to\infty}\PP\cbk{\omega(X_n,\delta)>3\varepsilon}\leq\frac{8\lambda^2}{\varepsilon^2}\PP\cbk*{\abs{N}\geq\frac{\lambda}{2}},
+    \]
+    por la desigualdad de Chebyshev tenemos que 
+    \begin{align*}
+        \limsup_{n\to\infty}\PP\cbk{\omega(X_n,\delta)>3\varepsilon}\leq& \frac{8\lambda^2}{\varepsilon^2}\cdot \frac{8}{\lambda^3}\cdot \EE[\abs{N}^3]\\ 
+        =&\cpp*{\frac{8}{\varepsilon}}^2\cdot\frac{\sqrt{2\delta}}{\varepsilon}\cdot\EE[\abs{N}^3],
+    \end{align*}
+    y de esta desigualdad tomando $\delta\to 0$ llegamos a que
+    \[
+    \lim_{\delta\to 0}\limsup_{n\to\infty}\PP\cbk{\omega(X_n,\delta)>3\varepsilon}=0,
+    \]
+    por lo que se cumple la condición (ii) del Teorema \ref{weak convergence in C}.
+
+    Al cumplirse (i) y (ii) del Teorema \ref{weak convergence in C} con $\{X_n:n\in\N\}$ y el proceso $W$ con distribución la medida de Wiener concluimos $X_n\Rightarrow W$, que es lo que queríamos probar. 
+\end{proof}
+\newpage
+%-----------------------------------------------
+% Bibliografía
+%-----------------------------------------------
+\nocite{*}
+\printbibliography
+
+
+\end{document}

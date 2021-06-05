@@ -1,0 +1,329 @@
+
+% Required for TeX packages
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{macros}[mis macros]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom commands -- math symbols and math shortcuts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Paquetes que se van a cargar al cargar estas macros
+\RequirePackage{mathtools}
+\RequirePackage{amssymb}
+\RequirePackage{amsthm}
+\RequirePackage{thmtools}
+\RequirePackage{bbm}
+\RequirePackage{dsfont}
+\RequirePackage{bm}
+\RequirePackage{mathrsfs}
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage[framemethod=tikz]{mdframed}
+\RequirePackage{physics}
+\RequirePackage[bb=px, bbscaled=0.91,
+  cal=txupr, calscaled=.91,
+  frak=euler,frakscaled=.91,
+  scr=boondoxupr]{mathalpha}
+\let\amsmathbb\mathbb
+\let\amsmathcal\mathcal
+\let\amsmathfrak\mathfrak
+\let\amsmathscr\mathscr
+\AtBeginDocument{%
+    \let\mathbb\relax
+    \newcommand{\mathbb}[1]{\amsmathbb{#1}}
+    \let\mathcal\relax
+    \newcommand{\mathcal}[1]{\amsmathcal{#1}}
+    \let\mathfrak\relax
+    \newcommand{\mathfrak}[1]{\amsmathfrak{#1}}
+    \let\mathscr\relax
+    \newcommand{\mathscr}[1]{\amsmathscr{#1}}
+}
+
+\newlength{\leftbarwidth}
+\setlength{\leftbarwidth}{3pt}
+\newlength{\leftbarsep}
+\setlength{\leftbarsep}{10pt}
+
+\newcommand{\colorleftbar}[2]{%
+  \newmdenv[topline=false, rightline=false, bottomline=false,innertopmargin=0pt,%
+  linewidth=3pt, innerrightmargin=0pt, leftmargin=-10pt,%
+  innerleftmargin=1pt, skipabove=5pt, skipbelow=0pt,linecolor=#1]{#2}}
+
+
+\newcommand{\defthmstyle}[3]{
+  \colorleftbar{#1}{#3}
+  %\newenvironment*{#3}{\colorleftbar{#1}}{\endMakeFramed}
+  \declaretheoremstyle[spaceabove=0pt, spacebelow=0pt,headfont=\kern-3pt\sffamily\bfseries,notefont=\mdseries, notebraces={(}{)},
+  headformat={\colorbox{#1}{\NAME~\NUMBER\NOTE.}}, headpunct=,%
+  preheadhook=\begin{#3},%
+  postfoothook=\end{#3},%
+  bodyfont=\slshape,postheadspace=%0.3em
+  \newline]{#2}
+}
+\newcommand{\defdfnstyle}[3]{
+  \colorleftbar{#1}{#3}
+  %\newenvironment*{#3}{\colorleftbar{#1}}{\endMakeFramed}
+  \declaretheoremstyle[spaceabove=0pt, spacebelow=0pt,headfont=\kern-3pt\sffamily\bfseries,notefont=\mdseries, notebraces={(}{)},
+  headformat={\colorbox{#1}{\NAME~\NUMBER\NOTE.}}, headpunct=,%
+  preheadhook=\begin{#3},%
+  postfoothook=\end{#3},%
+  bodyfont=\normalfont,postheadspace=\newline]{#2}
+}
+\newcommand{\defremstyle}[3]{
+  \colorleftbar{#1}{#3}
+  %\newenvironment*{#3}{\colorleftbar{#1}}{\endMakeFramed}
+  \declaretheoremstyle[spaceabove=0pt, spacebelow=0pt,headfont=\kern-3pt\sffamily\slshape,notefont=\mdseries, notebraces={(}{)},
+  headformat={\colorbox{#1}{\NAME~\NUMBER\NOTE.}}, headpunct=,%
+  preheadhook=\begin{#3},%
+  postfoothook=\end{#3},%
+  bodyfont=\normalfont,postheadspace=\newline]{#2}
+}
+
+
+
+% Paleta de colores mildliners Zebra
+\definecolor{fluorpink}{HTML}{FEE7F7}
+\definecolor{fluoryellow}{HTML}{FCFECD}
+\definecolor{fluororange}{HTML}{FEDE89}
+\definecolor{fluorgreen}{HTML}{DAF8F6}
+\definecolor{fluorblue}{HTML}{D8F5FB}
+\definecolor{coolgreen}{HTML}{C8DF99}
+\definecolor{coolblue}{HTML}{B5C0DC}
+\definecolor{coolgrey}{HTML}{DFDAD4}
+\definecolor{coolviolet}{HTML}{E3D6F4}
+\definecolor{coolred}{HTML}{EC7990}
+\definecolor{warmblue}{HTML}{74A7B2}
+\definecolor{warmmagenta}{HTML}{F394F0}
+\definecolor{warmgold}{HTML}{FFD21D}
+\definecolor{warmvermillion}{HTML}{E66B59}
+\definecolor{warmbrown}{HTML}{A77E7C}
+\definecolor{famcoral}{HTML}{FEA3AA}
+\definecolor{famapricot}{HTML}{FFD4AA}
+\definecolor{famlemon}{HTML}{FAFD70}
+\definecolor{famcyan}{HTML}{A0E1F7}
+\definecolor{famgrey}{HTML}{958496}
+\definecolor{brightperiwinkle}{HTML}{6E7DDA}
+\definecolor{brightsummer}{HTML}{21DFB9}
+\definecolor{brightcitrus}{HTML}{E3F57A}
+\definecolor{brightmarigold}{HTML}{ED703A}
+\definecolor{brightfucsia}{HTML}{F8A3EE}
+
+% Colores para los teoremas
+\colorlet{thmcolor}{fluorpink}%Peach}
+\colorlet{propcolor}{fluorgreen}%RubineRed}
+\colorlet{lemcolor}{warmvermillion!20}%Lavender}
+\colorlet{corcolor}{fluorblue}%SkyBlue}
+\colorlet{dfncolor}{brightsummer!30}%BlueGreen}
+\colorlet{rmkcolor}{fluororange!50}%Salmon}
+\colorlet{ntncolor}{coolviolet}
+\colorlet{excolor}{warmmagenta!30}
+
+% Definición de teoremas
+\theoremstyle{plain}
+\defthmstyle{thmcolor}{mytheorems}{thms}
+\defthmstyle{propcolor}{myprops}{props}
+\defthmstyle{lemcolor}{mylems}{lems}
+\defthmstyle{corcolor}{mycors}{cors}
+\declaretheorem[name=Teorema,style=mytheorems]{theorem}
+\declaretheorem[name=Proposici\'on,sibling=theorem,style=myprops]{proposition}
+\declaretheorem[name=Lema,sibling=theorem,style=mylems]{lemma}
+\declaretheorem[name=Corolario,sibling=theorem,style=mycors]{corollary}
+\theoremstyle{definition}
+\defdfnstyle{dfncolor}{mydefinition}{dfns}
+\defdfnstyle{ntncolor}{mynotation}{ntns}
+\declaretheorem[name=Definici\'on,style=mydefinition]{definition}
+\declaretheorem[name=Notaci\'on,style=mynotation]{notation}
+
+
+
+
+% paréntesis inteligentes
+\DeclarePairedDelimiterX{\cpp}[1]{(}{)}{\def\given{\;\delimsize\vert\;}#1}
+\DeclarePairedDelimiterX{\cbk}[1]{[}{]}{\def\given{\;\delimsize\vert\;}#1}
+\DeclarePairedDelimiterX{\cbr}[1]{\lbrace}{\rbrace}{\def\given{\;\delimsize\vert\;}#1}
+\DeclarePairedDelimiterX{\innp}[1]{\langle}{\rangle}{\def\given{\;\delimsize\vert\;}#1}
+
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\Hy}{\mathcal{H}}
+\newcommand{\VS}{\textrm{VS}}
+\newcommand{\solution}{~\newline\textit{(Solución)}\newline }
+\newcommand{\bbF}{\mathbb{F}}
+\newcommand{\bbX}{\mathbb{X}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bZ}{\mathbf{Z}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Po}{\mathcal{P}}
+\newcommand{\x}{\mathbf{x}}
+\let\abs\relax\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\let\norm\relax\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\newcommand{\z}{\mathbf{z}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\w}{\mathbf{w}}
+\newcommand{\bd}{\boldsymbol{\delta}}
+\newcommand{\bu}{\mathbf{u}}
+\newcommand\floor[1]{\lfloor #1\rfloor}
+\newcommand\ceil[1]{\lceil #1\rceil}
+\newcommand\prob[1]{\mathbb{P}\!\left[ #1\right]}
+
+%-----------
+% Más Macros 
+%-----------
+
+\def\EE{\mathbb{E}}
+\def\PP{\mathbb{P}}
+\def\Ref#1{(\ref{#1})}
+\def\B{{\ca B}}
+\def\Dem{{\noindent\bf Demostración. }}
+\def\A{{\ca A}}
+\def\r#1{\PP\left[ #1\right]}
+\def\pp{{\cal P}}
+\def\bs{\backslash }
+\def\ca#1{{\cal #1}}
+\def\caa#1{\mbox{\calll #1}}
+\def\ssi{\mbox{$\ \ \Longleftrightarrow\ \ $ }}
+\def\then{\mbox{$\ \ \Rightarrow\ \ $ }}
+\def\salg#1{\boldsymbol{\sigma}\left(#1\right)}
+\def\bsym#1{\boldsymbol{#1}}
+\def\bf#1{\mathbf{#1}}
+%--------
+% Letras
+%--------
+
+\def\X{\frak{X}}
+\def\F{{\ca{F}}}
+\def\G{\mbox{{\call G}}}
+\def\H{\mbox{{\call H}}}
+\def\Ca#1{\mbox{\call #1}}
+\def\M{\mbox{{\call M}}}
+%\def\ee#1{\EE\L[#1\R]}
+\def\const{{\rm Const.\,}}
+\def\y{\quad\mbox{y}\quad}
+\def\bphi{\bm{\phi}}
+\def\bpsi{\bm{\psi}}
+\def\N{\mathbb{N}}
+\def\Lalfa{\bm{\Delta}_{\alpha}}
+\def\prd#1{\displaystyle\Pr\Le[#1\Ri]}
+\def\Pr#1{\mathbb{P}\!\left[ #1\right]}
+\def\ni{\noindent}
+\def\ar#1{\overset{#1}{\to}}
+\def\eqd#1{\overset{#1}{=}}
+\def\ginv#1{#1^{\leftarrow}}
+
+%---------------
+% Abreviaciones
+%---------------
+\def\ofp{(\Omega,\F,\PP)}
+\def\ofmu{(\bX,\frak X,\mu)}
+\def\bea*{\begin{eqnarray*}}
+\def\eea*{\end{eqnarray*}}
+\def\beq*{\begin{equation*}}
+\def\eeq*{\end{equation*}}
+\def\bsp{\begin{split}}
+\def\esp{\end{split}}
+\def\mucd{\mbox{$\mu$ c.d.}}
+\def\m*{\mu^*}
+\def\be{\begin{enumerate}}
+\def\ee{\end{enumerate}}
+\def\Ph{\phantom{\int}\!\!\!\!\!\!\!\!}
+\def\ph{\phantom{1^l\!\!\!\!\!\!\!}}
+\def\ld{\ldots}
+\def\tf{\mbox{$\therefore$\ }}
+\def\fa{\mbox{$\ \forall\ $}}
+\def\num#1{(\textcolor{RobRed}{#1})}
+\newcommand{\cov}[1]{\mathrm{cov}\left( #1 \right)}
+
+
+% Set of functions integrable in the Riemann sense and equal sign denoted with L'Hospitals' rule
+\newcommand{\Rf}{\ensuremath{\mathcal{R}(\alpha)}}
+\newcommand{\lh}{\ensuremath{\overset{\text{L'H}}{=}}}
+
+% LCM function
+\newcommand{\lcm}{\ensuremath{\mathrm{lcm}}}
+
+% Legendre symbol
+\newcommand{\leg}[2]{\ensuremath{\left( \frac{#1}{#2} \right)}}
+
+
+% Colors
+% See http://web.njit.edu/~kevin/rgb.txt.html for possibilities
+\definecolor{RobDarkBlue}{rgb}{.1,0,.2}  
+\definecolor{RobBlue}{rgb}{.1,.1,.5}  
+\definecolor{RobRoyal}{rgb}{.2,.2,.8}  
+%\definecolor{RobGreen}{rgb}{0,.35,.1}
+%\definecolor{RobGreen}{rgb}{0,.5,.25}  % Too bright
+%\definecolor{RobGreen}{rgb}{0,.4,.2}    % Still too bright
+\definecolor{RobGreen}{rgb}{0,.4,0}    % Dark Green
+%\definecolor{RobRed}{rgb}{.8,.1,.2}    % Too bright
+\definecolor{RobRed}{rgb}{.5,0,.5}  % purple
+
+%%% HYPERLINKS %%%%%%%%%%%%%%%%%%%%%
+\usepackage{hyperref}
+\usepackage[figure,table]{hypcap} % Correct a problem with hyperref
+\urlstyle{rm} %so it doesn't use a typewriter font for url's.
+
+%%%%%%%%%%%%%%%%%%%%%
+
+
+% Fix title, sections, etc.
+
+\let\LaTeXtitle\title
+\renewcommand{\title}[1]{\LaTeXtitle{\color{RobBlue}{\LARGE #1}}}
+\renewcommand{\abstractname}{\color{RobBlue}Abstract}
+\renewcommand{\figurename}{\color{RobBlue}Figura}
+\renewcommand{\tablename}{\color{RobBlue}Tabla}
+
+\let\LaTeX@startsection\@startsection 
+\renewcommand{\@startsection}[6]{\LaTeX@startsection%
+{#1}{#2}{#3}{#4}{#5}{\color{RobDarkBlue}\raggedright #6}} 
+
+
+% Spacing in Tables and Figures
+%\renewcommand{\tabcolsep}{1pt}   % space between columns
+\renewcommand{\arraystretch}{1.5} % space between rows
+\addtolength{\textfloatsep}{0pt} % space between floats and text
+\addtolength{\abovecaptionskip}{0pt} % space above caption
+\addtolength{\belowcaptionskip}{.15in} % space below caption
+
+% Make hyperlinks jump more accurately
+\makeatletter
+\newcommand\org@hypertarget{}
+\let\org@hypertarget\hypertarget
+\renewcommand\hypertarget[2]{%
+\Hy@raisedlink{\org@hypertarget{#1}{}}#2%
+} \makeatother 
+
+%% Shortcut commands
+\newcommand{\growth}[1]{\frac{\dot{#1}_t}{{#1}_t}}
+\newcommand{\prtl}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\prtlsec}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\commentno}[2]{\underset{\mbox{#2}}{#1}}
+\newcommand{\comment}[2]{\underbrace{#1}_{\mbox{{\small \color{RobGreen}#2}}}}
+\newcommand{\cn}[1]{\citet*{#1}}
+\newcommand{\cnp}[1]{(\citealt{#1})}  % (Jones 2002)
+\newcommand{\up}[0]{\uparrow \hspace{-.5ex}}  % \! is a negative thinspace
+\newcommand{\down}[0]{\downarrow \hspace{-.5ex}}
+\newcommand{\query}[1]{{\it \color{red}[??? #1]}}
+
+
+%\newcommand{\fignote}[2]{\begin{center}\parbox[c]{#1}{\footnotesize #2} \end{center}}
+%\newcommand{\tabnote}[2]{\begin{center}\parbox[c]{#1}{\footnotesize #2} \end{center}}
+\newcommand{\SubSubSection}[1]{\subsubsection{#1} \baselineskip=18pt}
+\newcommand{\problem}[2]{\hspace{.1in} {{\color{RobBlue}{\textbf{#1}:} #2}}}
+\newcommand{\proptitle}[1]{\color{RobBlue} \textnormal{(#1):}}
+\newcommand{\assume}[2]{{\bf{Supuesto #1}} (#2)} 
+\newcommand{\Proof}{{\hspace{-\parindent} {\color{RobBlue}\textit{Demostración: }}}\vspace{.1in}}
+\newcommand{\pfrac}[2]{\left( \frac{#1}{#2} \right)}  % 
+\newcommand\QED{
+    {\color{RobBlue}{\small$\qedhere$}}
+}
+\newcommand{\colemph}[1]{{\color{RobBlue}{#1}}}
+\newcommand\myatop[2]{\genfrac{}{}{0pt}{}{#1\hfill}{#2\hfill}}

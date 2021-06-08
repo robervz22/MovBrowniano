@@ -338,12 +338,73 @@ leftmargin=*}
 
 \section{Nota Histórica}
 
+Recordamos quel el Teorema Central del Límite es su versión más popular establece 
+
+Históricamente, las raíces del movimiento browniano estan en el Teorema Central del Límite (TLC). El primer TLC fue obtenido en los albores del siglo XVIII por DeMoivre como una aproximación normal a la distribución binomial. Un siglo más tarde, Laplace obtiene una generalización de ese resultado, para suma de variables aleatorias independientes e idénticamente distribuidas que tienen momentos finitos de todos los órdenes, sin embargo para los estándares de rigos de las matemáticas actuales, la prueba de Laplace no se consideraría completa. La primer prueba rigurosa del TLC fue dada por Lyapounov otros 100 años después. La forma más popular del TLC para variables aleatorias independientes e idénticamente distribuidas se debe a Paul Lévy (1925).
+
+La idea de un proceso estocástico $\{B_t:t\geq 0\}$ con incrementos independientes normales se deriva del TLC, imaginando sumas de variables aleatorias y bloques de la forma $S_n,S_{2n}-S_{n},\dots$, y si se escala la suma de la forma $\frac{S_n-n\mu}{\sigma\sqrt{n}},\frac{S_{2n}-S_n-n\mu}{\sigma\sqrt{n}}\dots,$ entonces el proceso límite resulta tener incrementos independientes y normales, el movimiento browniano es precisamente este proceso pero construido para todo tiempo $t\geq 0$. La concepción de este proceso se debe a Bachelier que lo introdujo en su tesis doctoral escrita en 1900, en la que usaba este proceso como un modelo para describir el movimiento de los precios de acciones. 
+
+En 1923, Wiener probó que se puede tomar un movimiento browniano con trayectorias continuas casi seguramente, así construyó una medida de probabilidad, llamada la medida de Wiener, extendiendo el concepto de distribución normal para infinitas dimensiones en el sentido que el proceso inducido por las proyecciones naturales tuviese incrementos independientes y normales, además en 1933, Paley, Wiener y Zygmund probaron que con probabilidad uno, las trayectorias del movimiento browniano son continuas pero en níngun lugar diferenciables. 
+
+Más tarde, en 1951 Monroe Dosnker, motivado por resultados de Erdös y Kac, demostro un teorema que formaliza la construcción del movimiento browniano como un proceso límite, tema que discutiremos a detalle a lo largo de este escrito.
+
 
 \newpage
 
 \section{Introducción}
 
+El propósito de esta sección será recordar algunos conceptos y resultados útiles para entender el resto del reporte de forma más amena. 
 
+El Teorema Central del Límite clásico, que abreviaremos TLC establece
+\begin{thm}
+Sea $\{X_n:n\in\N\}$ una sucesión de variables aleatorias iid con varianza finita $\sigma^2$ y media $\mu$. Sea $\overline{X_n}$ la media muestral construida con $n$ variables de la sucesión, se cumple que 
+\[
+    \frac{\overline{X_n}-\mu}{\sigma/\sqrt{n}}\ar{d}Z,\ \ Z\sim N(0,1).
+\]
+\end{thm}
+
+La noción de convergencia en distribución se estudia para variables aleatorias, que inducen medidas en $(\R,\ca B(\R))$ donde $\ca B(\R)$ es la $\sigma$-álgebra de Borel en $\R$, esta noción se puede generalizar para medidas en espacios más generales. 
+
+Consideramos $(S,d)$ un espacio métrico general y $\tau_d$ la topología inducida por la métrica. El espacio medible de interés será $(S,\ca S)$ donde $\ca S=\sigma(\tau_d)$, está será la $\sigma$-álgebra de Borel en $S$.
+
+Dada una medida de probabilidad $\PP$ sobre $(S,\ca S)$, para $f:S\rightarrow \R$ escribimos
+\[
+    \mathbb{P}f:=\int fd\mathbb{P},
+\]
+
+con esta notación podemos extender la noción de convergencia en distribución
+\begin{defn}
+Dada una familia de medidas de probabilidad $\{\mathbb{P}_n:n\in\N\}$ sobre $(S,\ca S)$, diremos que ella \colemph{converge débilmente} a $\PP$, denotado por $\mathbb{P}_n\Rightarrow\PP$ si se cumple que $\PP_n f\to\PP f$, para toda función $f:S\rightarrow\R$ continua y acotada.
+\end{defn}
+\clearpage
+Una noción importante que posteriormente tendrá una relación con la convergencia débil es la de tensión. 
+\begin{defn}
+Una medida de probabilidad $\PP$ sobre $(S,\ca S)$ es \colemph{tensa} si para cualquier $\varepsilon>0$ existe $K\subset S$ compacto, tal que $\PP[K]\geq 1-\varepsilon$.
+\end{defn}
+
+Podemos también hablar también de tensión para una familia de medidas de probabilidad $\{\PP_n:n\in\N\}$ si la condición anterior se cumple para toda $n\in\N$.
+
+Otro concepto concepto importante es el de compacidad relativa que definimos a continuación.
+\begin{defn}
+Diremos que una familia $\Pi$ de medidas de probabilidad sobre $(S,\ca S)$ es \colemph{relativamente compacta} si para cualquier sucesión $\{\mathbb{P}_n:n\in\N\}\subset\Pi$, contiene una subsucesión débilmente convergence a una medida de probabilidad en $(S,\ca S)$, no necesariamente un elemento de $\Pi$.
+\end{defn}
+
+Finalmente, otros conceptos que usaremos en menor medida son los siguientes 
+\begin{defn}
+Dado $(S,\ca S)$ y $\ca A\subset\ca S$, diremos que $\ca A$ es una \colemph{clase separante} si dadas dos medidas de probabilidad $\mathbb{P}_1,\PP_2$ sobre $(S,\ca S)$ tales que $\PP_1[A]=\PP_2[A]$ para todo $A\in\ca A$, se cumple que $\PP_1[B]=\PP_2[B]$ para todo $B\in\ca S$.
+\end{defn}
+
+y 
+\begin{defn}
+    Dado $(S,\ca S)$ y $\ca A\subset\ca S$, diremos que $\ca A$ es una \colemph{clase determinante de convergencia} si para $\{\PP_n:n\in\N\}$ y $\PP$ medidas de probabilidad sobre $(S,\ca S)$, la convergencia $\PP_n[A]\to\PP[A]$ para todo $A\in\ca A$ conjunto de $\PP$-continuidad, implica que $\PP_n\Rightarrow\PP$.
+\end{defn}
+
+Uno teorema que relacionan tensión y compacidad es el \colemph{Teorema de Prohorov}, sea $\Po(\ca S)$ el conjunto de medidas de probabilidad en $(S,\ca S)$, se tiene el siguiente resultado 
+\begin{thm}[Prohorov]
+Sea $(S,d)$ separable y completo. Consideremos $\Pi\subset\Po(\ca S)$, entonces $\Pi$ es tensa si y sólo si $\Pi$ una familia relativamente compacta de medidas de probabilidad.
+\end{thm}
+
+Recordando estos resultados y conceptos podemos empezar el camino para probar el \colemph{Teorema de Donsker}, en el cual se obtiene al movimiento browniano como un proceso límite, en el sentido de convergencia débil.
 \newpage
 
 %---------------------------------------------
@@ -733,7 +794,7 @@ A continuación demostraremos la existencia de la medida de Wiener.
 
     Para verificar la condición (i) basta notar que $\xi_{1/n^2}\ar{P}0$ respecto a la medida $\mathbb{W}$ cuando $n\to\infty$, luego para todo $\varepsilon>0$
     \[
-      \lim_{n\to\infty}\mathbb{W}\cbk*{\abs{P_{1(n^2)}}>\varepsilon}=\lim_{n\to\infty}\PP\cbk*{\abs{\xi_{1/n^2}}>\varepsilon}=0, 
+      \lim_{n\to\infty}\mathbb{W}\cbk*{\abs{P_{1/n^2}}>\varepsilon}=\lim_{n\to\infty}\PP\cbk*{\abs{\xi_{1/n^2}}>\varepsilon}=0, 
     \]
     y por la continuidad del proceso $P$ se tiene que 
     \[

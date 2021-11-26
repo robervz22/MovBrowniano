@@ -1,32 +1,85 @@
-\documentclass[12pt, letterpaper]{article}
+\documentclass[12pt,oneside]{book}
 \usepackage[utf8]{inputenc}
+
+%--------%
+% IDIOMA %
+%--------%
 \usepackage[spanish,es-nodecimaldot,es-tabla,es-lcroman]{babel}
-\usepackage{macros}
-\usepackage{standalone}
-%\usepackage{import}
+
+%--------%
+% MARGEN %
+%--------%
 \usepackage[margin=1in,headheight=57pt,headsep=0.1in]{geometry}
+
+
+%------------------------------%
+% Carga del archivo matros.sty %
+%------------------------------%
+\usepackage{macros}
+
+
+%-----------------------------%
+% Paquetería por si las dudas %
+%-----------------------------%
+\usepackage{standalone}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{microtype}
 \usepackage{tikz}
-%\usepackage[framemethod=TikZ]{mdframed}
 
-% ------------- %
-% HEADER/FOOTER %
-% ------------- %
-%\setlength\parindent{0pt}
-%\setlength\headheight{30pt}
-%\headsep=0.25in
-%\lhead{\textbf{Tarea 6}}
-%\rhead{\textbf{\course}}
 
+% -------------------------%
+% ENCABEZADO/PIE DE PAGINA %
+% -------------------------%
+\usepackage{fancyhdr}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\thepage}
+\fancyhead[R]{\slshape\nouppercase{\leftmark}}
+\fancyhead[L]{\slshape\nouppercase{Materia}}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+
+
+%--------------------%
+% ESTILO DE CAPITULO %
+%--------------------%
+\usepackage{titlesec}    
+\titleformat{\chapter}[display]
+{\normalfont%
+    \huge% 
+    \bfseries}{\chaptertitlename\ \thechapter}{14pt}{%
+    \Huge%
+    }
+\usepackage{sectsty}
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        %\huge\bfseries \@chapapp\space \thechapter
+        \Huge\bfseries {\color{RobDarkBlue}{\thechapter}}.\space%
+        %\par\nobreak
+        %\vskip 20\p@
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries {\color{RobDarkBlue}{#1}}\par\nobreak
+    \vskip 40\p@
+  }}
+\makeatother
+\chapterfont{\color{RobDarkBlue}}  % modificar color de capitulo
 
 % ----------------- %
-% BOXED EXPRESSIONS %
+% AMBIENTES         %
 % ----------------- %
-
 %---------%
 % Teorema %
 %---------%
-\newcounter{thm}[section]
-\renewcommand{\thethm}{\thesection.\arabic{thm}}
+\newcounter{thm}[chapter]
+\renewcommand{\thethm}{\thechapter.\arabic{thm}}
 \newenvironment{thm}[1][]
  {%
   \refstepcounter{thm}%
@@ -48,8 +101,8 @@
 %-------------%
 % Observacion %
 %-------------%
-\newcounter{obs}[section]
-\renewcommand{\theobs}{\thesection.\arabic{obs}}
+\newcounter{obs}[chapter]
+\renewcommand{\theobs}{\thechapter.\arabic{obs}}
 \newenvironment{obs}[1][]
  {%
   \refstepcounter{obs}%
@@ -71,8 +124,8 @@
 %------%
 % Lema %
 %------%
-\newcounter{lema}[section]
-\renewcommand{\thelema}{\thesection.\arabic{lema}}
+\newcounter{lema}[chapter]
+\renewcommand{\thelema}{\thechapter.\arabic{lema}}
 \newenvironment{lema}[1][]
  {%
   \refstepcounter{lema}%
@@ -94,8 +147,8 @@
 %------------%
 % Definición %
 %------------%
-\newcounter{defn}[section]
-\renewcommand{\thedefn}{\thesection.\arabic{defn}}
+\newcounter{defn}[chapter]
+\renewcommand{\thedefn}{\thechapter.\arabic{defn}}
 \newenvironment{defn}[1][]
  {%
   \refstepcounter{defn}%
@@ -114,9 +167,10 @@
  }
  {\end{mdframed}} 
 
-% Boxed expressions sin referencias
-
- \newenvironment{question}[1][]{
+%------------------------%
+% AMBIENTES SIN CONTADOR %
+%------------------------%
+\newenvironment{question}[1][]{
 \ifstrempty{#1}
     {}
     {\mdfsetup{
@@ -134,7 +188,6 @@
 }{
     \end{mdframed}
 }
-
 \newenvironment{lem}[1][]{
 \ifstrempty{#1}
     {}
@@ -157,16 +210,14 @@
 }{
     \end{mdframed}
 }
-%-------%
-% FONTS %
-%-------%
-
+%---------%
+% FUENTES %
+%---------%
 % Skip lines and don't indent
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
-
-% FONTS
+% FUENTES
 \RequirePackage[bb=px, bbscaled=0.91,
   cal=txupr, calscaled=.91,
   frak=euler,frakscaled=.91,
@@ -186,61 +237,15 @@
     \newcommand{\mathscr}[1]{\amsmathscr{#1}}
 }
 
-
-% Import math fonts and symbols
-%\RequirePackage{amsfonts}
-%\RequirePackage{amsmath,amsthm,amssymb}
-
-% Palatino typeface -- includes (old-style) text figures
 \RequirePackage[osf]{mathpazo}
-
-
-% ---------- %
-% PARAMETERS %
-% ---------- %
-%\newcommand\course{Probabilidad Avanzada}
-%\newcommand\coursetitle{Tarea 6}
-%\newcommand\prof{Dr. Ehyter Martín González}
-%\newcommand\semester{Enero-Junio 2021}
 \author{Roberto Vásquez Martínez}
 
-%------------------------%
-% Encabezado, numeración %
-%------------------------%
-\usepackage{graphicx}
-
-\usepackage[automark]{scrlayer-scrpage}% sets pagestyle scrheadings automatically
-\clearpairofpagestyles
-\ofoot*{\pagemark}
-\rehead*[]{ Movimiento Browniano }
-\lehead*[]{\headmark}
-\lohead*[]{ Probabilidad Avanzada }
-\rohead*[]{\headmark}
-
-\KOMAoptions{
-  footsepline=1pt:.25\paperwidth,% syntax: footsepline=<thickness>:<length>
-  plainfootsepline,
-  olines,
-  headsepline=0.5pt:\textwidth
-}
-\ModifyLayer[
-  hoffset=0pt,
-  width=\paperwidth,
-  addvoffset=-5pt % move the line up
-]{scrheadings.foot.above.line}
-\RedeclareLayer[
-  clone=scrheadings.foot.above.line
-]{plain.scrheadings.foot.above.line}
-
-%\setkomafont{pagenumber}{\normalfont\sffamily\bfseries}
-\setkomafont{pagehead}{\sffamily}
-\renewcommand*{\sectionmarkformat}{}
-\automark*[section]{section}
-
-\usepackage{microtype}
+%----------%
+% LISTADOS %
+%----------%
+% Los enlistados ahora tienen (i), (ii), ... en el primer nivel y (a), (b), ...
+% en el segundo nivel
 \usepackage[inline]{enumitem}
-\usepackage{multicol}
-
 \setlist[1]{parsep=0pt,
 topsep=3pt,
 itemsep=0pt,
@@ -251,20 +256,19 @@ topsep=3pt,
 itemsep=0pt,
 label=\textup{(\alph*)}, 
 leftmargin=*}
-
 \usepackage{etoolbox}
 
+%-----------------------%
+% NUMERACION ECUACIONES %
+%-----------------------%
+\numberwithin{equation}{chapter}
 
-% Numeración Ecuaciones
-\numberwithin{equation}{section}
-
-%-----------------------------%
-% Hipervínculos y referencias %
-%-----------------------------%
+%-------------------------------------%
+% COLORES, REFERENCIAS, HIPERVINCULOS %
+%-------------------------------------%
 \definecolor{mytitlecolor}{RGB}{115,35,60}
 \definecolor{mysectioncolor}{RGB}{104,34,139}
 \definecolor{coolred}{HTML}{EC7990}
-
 \usepackage[backend=biber,style=apa]{biblatex}
 \usepackage{csquotes}
 \DeclareLanguageMapping{spanish}{spanish-apa}
@@ -273,21 +277,19 @@ leftmargin=*}
 
 \hypersetup{
     colorlinks=true,
-    linkcolor=RobBlue,
+    linkcolor=RobRed,
     filecolor=magenta,      
     urlcolor=cyan,
     pdfauthor={R. Vasquez},
     pdftitle={Teorema de Donsker},
-    citecolor=RobBlue
+    citecolor=RobRed
 }
 
 
-% -------- %
-% DOCUMENT %
-% -------- %
+% ----------%
+% DOCUMENTO %
+% ----------%
 \begin{document}
-
-
 %---------%
 % PORTADA %
 %---------%
@@ -328,17 +330,17 @@ leftmargin=*}
 %--------%
 % INDICE %
 %--------%
-
+\begingroup
+\hypersetup{linkcolor=RobDarkBlue}
 \tableofcontents
+\endgroup
 
 \addtocontents{toc}{\protect\thispagestyle{empty}} % quita numeracion del indice
 
 \pagebreak
 \setcounter{page}{1}
 
-\section{Nota Histórica}
-
-Recordamos quel el Teorema Central del Límite es su versión más popular establece 
+\chapter{Nota Histórica}
 
 Históricamente, las raíces del movimiento browniano estan en el Teorema Central del Límite (TLC). El primer TLC fue obtenido en los albores del siglo XVIII por DeMoivre como una aproximación normal a la distribución binomial. Un siglo más tarde, Laplace obtiene una generalización de ese resultado, para suma de variables aleatorias independientes e idénticamente distribuidas que tienen momentos finitos de todos los órdenes, sin embargo para los estándares de rigos de las matemáticas actuales, la prueba de Laplace no se consideraría completa. La primer prueba rigurosa del TLC fue dada por Lyapounov otros 100 años después. La forma más popular del TLC para variables aleatorias independientes e idénticamente distribuidas se debe a Paul Lévy (1925).
 
@@ -349,9 +351,7 @@ En 1923, Wiener probó que se puede tomar un movimiento browniano con trayectori
 Más tarde, en 1951 Monroe Dosnker, motivado por resultados de Erdös y Kac, demostro un teorema que formaliza la construcción del movimiento browniano como un proceso límite, tema que discutiremos a detalle a lo largo de este escrito.
 
 
-\newpage
-
-\section{Introducción}
+\chapter{Introducción}
 
 El propósito de esta sección será recordar algunos conceptos y resultados útiles para entender el resto del reporte de forma más amena. 
 
@@ -376,7 +376,7 @@ con esta notación podemos extender la noción de convergencia en distribución
 \begin{defn}
 Dada una familia de medidas de probabilidad $\{\mathbb{P}_n:n\in\N\}$ sobre $(S,\ca S)$, diremos que ella \colemph{converge débilmente} a $\PP$, denotado por $\mathbb{P}_n\Rightarrow\PP$ si se cumple que $\PP_n f\to\PP f$, para toda función $f:S\rightarrow\R$ continua y acotada.
 \end{defn}
-\clearpage
+
 Una noción importante que posteriormente tendrá una relación con la convergencia débil es la de tensión. 
 \begin{defn}
 Una medida de probabilidad $\PP$ sobre $(S,\ca S)$ es \colemph{tensa} si para cualquier $\varepsilon>0$ existe $K\subset S$ compacto, tal que $\PP[K]\geq 1-\varepsilon$.
@@ -394,22 +394,21 @@ Finalmente, otros conceptos que usaremos en menor medida son los siguientes
 Dado $(S,\ca S)$ y $\ca A\subset\ca S$, diremos que $\ca A$ es una \colemph{clase separante} si dadas dos medidas de probabilidad $\mathbb{P}_1,\PP_2$ sobre $(S,\ca S)$ tales que $\PP_1[A]=\PP_2[A]$ para todo $A\in\ca A$, se cumple que $\PP_1[B]=\PP_2[B]$ para todo $B\in\ca S$.
 \end{defn}
 
-y 
+\clearpage 
+
 \begin{defn}
     Dado $(S,\ca S)$ y $\ca A\subset\ca S$, diremos que $\ca A$ es una \colemph{clase determinante de convergencia} si para $\{\PP_n:n\in\N\}$ y $\PP$ medidas de probabilidad sobre $(S,\ca S)$, la convergencia $\PP_n[A]\to\PP[A]$ para todo $A\in\ca A$ conjunto de $\PP$-continuidad, implica que $\PP_n\Rightarrow\PP$.
 \end{defn}
-
 Uno teorema que relacionan tensión y compacidad es el \colemph{Teorema de Prohorov}, sea $\Po(\ca S)$ el conjunto de medidas de probabilidad en $(S,\ca S)$, se tiene el siguiente resultado 
 \begin{thm}[Prohorov]
 Sea $(S,d)$ separable y completo. Consideremos $\Pi\subset\Po(\ca S)$, entonces $\Pi$ es tensa si y sólo si $\Pi$ una familia relativamente compacta de medidas de probabilidad.
 \end{thm}
 
 Recordando estos resultados y conceptos podemos empezar el camino para probar el \colemph{Teorema de Donsker}, en el cual se obtiene al movimiento browniano como un proceso límite, en el sentido de convergencia débil.
-\newpage
 
 %---------------------------------------------
 
-\section{El espacio C}
+\chapter{El espacio C}
 Empezaremos presentando al espacio de funciones continuas y algunas propiedades que utilizaremos para describir las medidas de probabilidad en ese espacio y en consecuencia los procesos estocásticos a tiempo continuo.
 
 A lo largo de este escrito consideraremos $C=C[0,1]$, al ser $[0,1]$ compacto y separable en $\R$ entonces $C[0,1]$ es un espacio métrico separable y completo con la métrica 
@@ -433,7 +432,7 @@ Por otro lado, para $0\leq t_1<\dots<t_k\leq 1$ definimos las proyecciones natur
 
 lo que nos permite definir la clase de conjuntos finito dimensionales en el espacio $C$
 \begin{equation*}
-    \ca C_f=\{\pi_{t_1,\dots,t_k}^{-1}(H)\ :\ H\in\ca B(\R^k)\}
+    \ca C_f=\{\pi_{t_1,\dots,t_k}^{-1}(H)\ :\ H\in\ca B(\R^k),\ k\in\N\}
 \end{equation*}
 
 A continuación enunciamos un resultado que relaciona a $\ca C$ y $\ca C_f$.
@@ -468,7 +467,7 @@ Un conjunto $A\subset C$ es relativamente compacto si y sólo si se cumple las s
 \end{thm}
 
 Con ayuda de este teorema podemos caracterizar la compacidad relativa, lo que es lo mismo la tensión, en $\Po(\ca C)$ con la topología débil a través de este resultado
-
+\clearpage
 \begin{thm}
 \label{tight in PC}
 La sucesión $\{\PP_n:n\in\N\}\subset \Po(\ca C)$ es tensa si y sólo si se satisfacen las siguientes condiciones 
@@ -604,9 +603,9 @@ La sucesión $\{\PP_n:n\in\N\}\subset \Po(\ca C)$ es tensa si y sólo si se sati
         \lim_{\delta\to 0}\limsup_{n\to\infty}\PP_n\cbk*{\{f\in C:\omega_f(\delta)\geq\varepsilon\}}=0.
     \]
 \end{obs}
+\clearpage
 
 Ahora enunciaremos una desigualdad que nos servirá más adelante
-
 \begin{lema}
     \label{second condition lemma}
     Sea $\PP\in \Po(\ca C)$ y $\delta>0$, si $0=t_0<t_1<\dots<t_k=1$ y 
@@ -626,7 +625,7 @@ Ejemplificando la idea ya hemos estudiado variables aleatorias como funciones me
 Generalizando los procesos estocásticos a tiempo discreto están los procesos estocásticos a tiempo continuo, un ejemplo de esto sería el Proceso Poisson. A un proceso estocástico a tiempo continuo lo podemos ver como una función medible de la forma $X:\Omega\to C$, este tipo de función induce una medida de probabilidad que estará en $\Po(\ca C)$ que será la distribución del proceso, con esta idea en mente podemos estudiar la convergencia débil de procesos estocásticos a tiempo continuo considerando sus la convergencia débil de sus distribuciones en $\Po(\ca C)$. 
 
 
-\subsection{Elementos Aleatorios en C}
+\section{Elementos Aleatorios en C}
 
 Sea $\ofp$ un espacio de probabilidad y $(C,\ca C)$ el espacio medible asociado al espacio métrico $C$, consideraremos un elemento aleatorio sobre $C$ a una función $X:\Omega\to C$ que es $\ca F\backslash \ca C$-medible, esto es para cada $\omega\in\Omega$ se tiene que $X(\cdot,\omega):[0,1]\rightarrow\R$ es un elemento de $C$, es decir, una función continua.
 
@@ -668,6 +667,7 @@ La definición anterior nos permite relacionar la convergencia de procesos en $C
 
 En base a la caracterización de tensión de una familia de medidas de probabilidad que hemos descrito en esta sección y la definición de convergencia débil de procesos podemos relacionar la convergencia débil de procesos en $C$ con la convergencia de los procesos definidos por las proyecciones canónicas mediante este resultado
 
+\clearpage
 \begin{thm}
 \label{weak convergence in C}
 Sean $\{X^n:n\in\N\},X$ elementos aleatorios en $C$ con dominio un espacio de probabilidad $\ofp$. Si 
@@ -712,11 +712,9 @@ entonces $X^n\Rightarrow X$ cuando $n\to\infty$.
     Por el Teorema \ref{tight in PC} concluimos $\{\PP_n:n\in\N\}$ es una familia de medidas de probabilidad tensa, que es lo que queríamos probar.
 \end{proof}
 
-
-\newpage
 %---------------------------------------------
 
-\section{Medida de Wiener}
+\chapter{Medida de Wiener}
 
 En $C$ podemos considerar un proceso basado en las proyecciones naturales, recordemos que para $t\in [0,1]$ se tiene que $\pi_t:C\to \R$ es una función $\ca C\backslash\ca B(\R)$-medible, luego si definimos $P_t:C\to\R$ como 
 \[
@@ -743,7 +741,6 @@ La medida de Wiener, que denotaremos por $\mathbb{W}$, es una medida de probabil
 \end{defn}
 
 Para que la definición anterior sea apropiada, debemos demostrar que en efecto dicha medida en $(C,\ca C)$ existe, para probar la existencia de la medida de Wiener utilizaremos el siguiente resultado
-\clearpage
 \begin{thm}[Continuidad de Kolmogorov]
 \label{continuity kolmogorov}
 Sea $\xi=\cbr*{\xi_{t}:t\in [0,1]}$ un proceso estocástico y $\PP_{t_0,\dots,t_k}$ la distribución del vector $(\xi_{t_0},\dots,\xi_{t_k})$ en $\R^k$. Si existen constantes $\alpha,\delta,K>0$ tal que 
@@ -783,7 +780,7 @@ A continuación demostraremos la existencia de la medida de Wiener.
     \]
     por lo que se satisfacen las condiciones del Teorema \ref{continuity kolmogorov}, luego existe una única medida $\mathbb{W}$ en $(C,\ca C)$, tal que 
     \[
-        \PP_{t_0,t_1-t_0,\dots,t_k-t_{k-1}}\cbk*{\xi_{t_0}\leq\alpha_0,\xi_{t_1}-\xi_{t_0}\leq \alpha_1,\dots,\xi_{t_k}-\xi_{t_{k-1}}\leq \alpha_k}=W\circ \pi_{t_0,t_1-t_0,\dots,t_k-t_{k-1}}^{-1}\cbk*{(-\infty,\boldsymbol{\alpha}]},
+        \PP_{t_0,t_1-t_0,\dots,t_k-t_{k-1}}\cbk*{\xi_{t_0}\leq\alpha_0,\xi_{t_1}-\xi_{t_0}\leq \alpha_1,\dots,\xi_{t_k}-\xi_{t_{k-1}}\leq \alpha_k}=\mathbb{W}\circ \pi_{t_0,t_1-t_0,\dots,t_k-t_{k-1}}^{-1}\cbk*{(-\infty,\boldsymbol{\alpha}]},
     \]
     donde $\boldsymbol{\alpha}=(\alpha_0,\dots,\alpha_k)$ y 
     \[
@@ -807,17 +804,14 @@ Dado que en el Teorema de Donsker nos interesa el límite de una convergencia d�
 
 \begin{obs}
 \label{process wiener}
-El proceso $P=\{P_t: t\in [0,1]\}$ es un elemento aleatorio en $C$ cuya distribución es la medida $W$, al proceso $P$ se le conoce como \colemph{Movimiento Browniano}. 
+El proceso $P=\{P_t: t\in [0,1]\}$ es un elemento aleatorio en $C$ cuya distribución es la medida $\mathbb{W}$, al proceso $P$ se le conoce como \colemph{Movimiento Browniano}. 
 \end{obs}
 
 A partir de este punto ya tenemos las herramientas necesarias para por fin enunciar el Teorema de Donsker y darle una demostración, tema central de la siguiente sección.
 
-\newpage
+\chapter{Teorema de Donsker}
 
-%-------------------------------------------------------
-\section{Teorema de Donsker}
-
-Empezamos considerando $\{\xi_n:n\in\N\}$ un conjunto de variables aleatorias sobre el espacio de probabilidad $\ofp$ independientes e idénticamente distribuidas con media 0 y varianza $\sigma^2$.
+Empezamos considerando $\{\xi_n:n\in\N\}$ un conjunto de variables aleatorias sobre el espacio de probabilidad $\ofp$ independientes e idénticamente distribuidas con media $0$ y varianza $\sigma^2$.
 
 Definimos $S_0=0$ y para $n\in\N$ 
 \[
@@ -966,7 +960,8 @@ Con las mismas consideraciones para $\{\xi_n:n\in\N\}$ y las sumas parciales com
 
 Con estos resultados estamos listos para por fin enunciar formalmente y demostrar el \colemph{Teorema de Donsker}.
 
-\begin{thm}[Teorema de Donsker]
+\clearpage
+\begin{thm}[Donsker]
 \label{theo donsker}
 Sea $W$ el elemento aleatorio en $C$ con distribución la medida de Wiener $\mathbb{W}$ y $\{X_n:n\in\N\}$ la familia de elementos aleatorios en $C$ definidos en \eqref{donsker process}. Entonces se cumple que 
 \[
@@ -1070,7 +1065,6 @@ cuando $n\to\infty$.
 
     Al cumplirse (i) y (ii) del Teorema \ref{weak convergence in C} con $\{X_n:n\in\N\}$ y el proceso $W$ con distribución la medida de Wiener concluimos $X_n\Rightarrow W$, que es lo que queríamos probar. 
 \end{proof}
-\newpage
 %-----------------------------------------------
 % Bibliografía
 %-----------------------------------------------

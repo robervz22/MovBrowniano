@@ -277,13 +277,14 @@
 
 \let\LaTeXtitle\title
 \renewcommand{\title}[1]{\LaTeXtitle{\color{RobBlue}{\LARGE #1}}}
-\renewcommand{\abstractname}{\color{RobBlue}Abstract}
+%\renewcommand{\abstractname}{\color{RobBlue}Abstract}
 \renewcommand{\figurename}{\color{RobBlue}Figura}
 \renewcommand{\tablename}{\color{RobBlue}Tabla}
 
 \let\LaTeX@startsection\@startsection 
 \renewcommand{\@startsection}[6]{\LaTeX@startsection%
 {#1}{#2}{#3}{#4}{#5}{\color{RobDarkBlue}\raggedright #6}} 
+ 
 
 
 % Spacing in Tables and Figures
@@ -325,5 +326,5 @@
 \newcommand\QED{
     {\color{RobBlue}{\small$\qedhere$}}
 }
-\newcommand{\colemph}[1]{{\color{RobBlue}{#1}}}
+\newcommand{\colemph}[1]{{\color{RobRed}{\emph{#1}}}}
 \newcommand\myatop[2]{\genfrac{}{}{0pt}{}{#1\hfill}{#2\hfill}}
